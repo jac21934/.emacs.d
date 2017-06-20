@@ -1,0 +1,376 @@
+#include "network.h"
+
+using namespace std;
+
+double network::return_neuron(int index){
+
+		if(index >= net_size){
+				return 0;
+		}
+		
+		else{
+				return neuron[index];
+		}
+
+}
+
+
+int network::size(){
+
+    return net_size;
+}
+
+void network::save_net(string name){
+
+    if(net_size <= 0){
+	cout << "ERROR: Network not initialized. Cannot save." << endl;
+	return;
+
+    }
+
+    ofstream outFile;
+    outFile.open(name.c_str());
+
+    if(outFile){
+	
+
+// ----------------- NETWORK TYPE --------------------
+
+	if(net_type != ""){
+	    outFile << "#NET_TYPE: " << net_type << endl;
+	}
+
+	
+// ---------------- LEARNING TYPE ------------------
+
+	if( learn_type != ""){
+	    outFile << "#LEARN_TYPE: " << learn_type << endl;
+	}
+	
+// -------------- NET SIZE -------------------------
+
+	outFile << "#NET_SIZE: " << net_size << endl;
+
+
+// ----------- NEURON VECTOR --------------------- 
+	outFile << "#NEURON_VEC: " << "{";
+
+	for(int i = 0; i < net_size; i++){
+
+	    outFile << " " << neuron[i];
+	    if(i != net_size - 1){
+		outFile << ",";
+	    }
+	}
+	
+	outFile << "}" << endl;
+
+
+// ---------------- WEIGHT MATRIX -----------------
+
+	outFile << "#WEIGHTS: " << endl;
+	outFile << setprecision(4) << fixed;
+
+    for(int i  = 0; i < net_size; i++){
+
+
+	outFile << "| ";
+
+	for(int j = 0; j < net_size; j++){
+
+	    outFile << setw(7) << weight[i][j] << "  ";
+	}
+
+
+	setw(1);
+	
+	outFile << "|" << endl;
+	
+    }
+
+    outFile << endl;
+
+
+    }
+	outFile.close();
+	   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+void network::display(){
+
+    display(cout);
+
+
+}
+
+
+
+bool network::net_recurrent(){
+    
+    bool type = 0;
+
+    bool buff1 = 1;
+    bool buff2 = 1;
+    bool buff3 = 1;
+
+    if( net_size <= 0){
+	cout << "Network not initialized. " << endl;
+	return type;
+    }
+    
+    else{
+
+	for(int i = 0; i < net_size; i++){
+	    for(int j = 0; j < net_size; j++){
+
+		if( (i == j) && (weight[i][j] > MIN_RES)) {
+		    buff1 = 0;
+		}
+		
+		else if( (i > j) && (weight[i][j] > MIN_RES)) {
+		    buff2 = 0;
+		}
+
+		else if( (i < j) && (weight[i][j] > MIN_RES)) {
+		    buff3 = 0;
+		}
+		
+		
+		
+	    }
+	    
+	}
+    }
+	
+	type = buff1 & (buff2 | buff3); 
+
+    return type;
+}
+
+
+
+void network::display(ostream& out){
+
+
+    display(out, "VERBOSE");
+
+}
+
+
+void network::display(ostream& out, string check){
+
+
+    if( check == "VERBOSE"){
+	bool type = net_recurrent();
+	
+	out << endl << "Network Size: " << net_size << endl;
+	
+	out << "Network Structure: ";
+	
+	if(type == 0){
+	    out << "RECURRENT";
+	}
+	
+	else if( type == 1){
+	    out << "NON-RECURRENT";
+	}
+	
+	
+	
+	if(net_type == ""){
+	}
+	else {
+	    out << endl;
+	    out << "Network Type: " << net_type;
+	    if(refractory == true){
+		out << ", REFRACTORY";
+	    }
+	    
+	}
+	if(learn_type == ""){
+	}
+	else {
+	    out  << endl;
+	    out << "Learning Type: " << learn_type;
+	}
+	out << endl;
+
+
+	update_inDegree();
+	update_outDegree();
+
+	out << "Neuron Threshold: " << n_max << endl << endl;;
+	
+	
+	
+	out << "inDegree:  [";
+	for(int i = 0; i < net_size; i++){
+	    out << inDegree[i];
+	    
+	    if( i < net_size - 1){
+		out << ", ";
+	    }
+	    else{
+	    
+	    }
+	}
+	out << "]" << endl << endl;
+	
+	out << "outDegree: [";
+	for(int i = 0; i < net_size; i++){
+	    out << outDegree[i];
+	    
+	    if( i < net_size - 1){
+		out << ", ";
+	    }
+	    else{
+		
+	    }
+	}
+	out << "]" << endl << endl;
+
+
+
+    
+
+
+
+    }
+    
+    else if (check == "QUIET"){}
+    
+    else{
+	cout << "ERROR: Incorrect flag " << check << ". Please enter either VERBOSE, QUIET or leave that field blank." << endl;
+	return;
+ }
+
+    out << "Weight Matrix:" << endl;
+
+    out << setprecision(4) << fixed;
+
+    for(int i  = 0; i < net_size; i++){
+
+	out << "| ";
+
+	for(int j = 0; j < net_size; j++){
+
+	    out << setw(7) << weight[i][j] << "  ";
+	}
+
+
+	setw(1);
+	
+	out << "|" << endl;
+	
+    }
+
+    out << endl;
+
+    out << "Neuron Vector:" << endl;
+
+    out << "{ ";
+
+    for(int i = 0; i < net_size; i++){
+	if (i < net_size - 1){
+	    out << setw(7) << neuron[i] << ", ";
+	}
+	else{
+	    out << setw(7) << neuron[i];
+	}
+
+    }
+
+    out << " }" << endl;
+
+    out << endl;
+    }
+
+
+
+
+
+void network::draw( string outname){
+    
+    string directory = "./figures/";
+
+    string filename = directory + "net.gv";
+
+    ofstream outFile;
+
+    outFile.open(filename.c_str());
+
+
+    outFile << "digraph G {" << endl;
+
+    outFile << "   rankdir=LR" << endl;
+    vector < string > nodes;
+
+
+    //draw nodes
+    for(int i = 0; i < net_size; i++){
+
+	ostringstream conv;
+	conv << i + 1;
+	
+	outFile << "   ";
+
+	nodes.push_back(conv.str());
+	outFile << nodes[i] + " [shape=circle,style=filled, fillcolor=lightblue]"  << endl;
+//	cout << nodes[i] << endl;
+
+    }
+
+    //draw arrows
+    for(int i = 0; i < net_size; i++){
+
+	for(int j = 0; j < net_size; j++){
+
+	    if(sqrt(weight[i][j] * weight[i][j]) > 0.001){
+		
+		//	cout << weight[i][j] << " ";
+
+		outFile << "   ";
+
+		outFile << nodes[i] + " -> " + nodes[j];
+		if( weight[i][j] < 0){
+		    outFile << " [arrowhead=\"tee\", color=\"red\"]"; 
+		}
+		outFile << endl;
+
+	    }
+
+	}
+
+//	cout << endl;
+
+    }
+
+
+
+    outFile << "}" << endl;
+
+    string command = "dot -Teps " + filename + " -o " + directory+ outname + ".eps";
+
+    int system_response = system(command.c_str());
+
+    return;
+
+}
+
+
+void network::output_weight(int i, int j){
+    
+    cout << "weight[" << i << "][" << j << "]: " << weight[i][j] << endl;
+}
+

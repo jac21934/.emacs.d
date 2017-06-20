@@ -1,0 +1,760 @@
+#include <iostream>
+#include <stdlib.h> //rand
+#include <time.h> //time()
+#include "network.h"
+#include <ncurses.h>
+
+#include <unistd.h> //sleep
+
+
+using namespace std;
+
+#define WINDOW_WIDTH 7
+#define WINDOW_HEIGHT 7
+
+#define WIN 50
+#define TIE 50
+#define LOSE -50
+#define WRONG_MOVE -20
+#define LEGAL_MOVE 5
+
+
+const int NET_NUM = 100;
+
+const int BOARD_HEIGHT = 3;
+const int BOARD_WIDTH = 3;
+
+class Board{
+public:
+		vector< vector<int> > board;
+		void print_board();
+		int move(int,int,int);
+		int board_check();
+		void flip_board();
+		void reset_board();
+		Board();
+};
+// initializing board to zero
+Board::Board(){
+		for(int j = 0; j < BOARD_HEIGHT; j++){
+				vector<int> buff;
+				for(int i = 0; i < BOARD_WIDTH; i++){
+						buff.push_back(0);
+				}
+				board.push_back(buff);
+		}
+
+}
+
+void Board::print_board(){
+		cout << "   ";
+		for(int j = 0; j < board[0].size(); j++){
+				cout << " " << j << "  ";
+		}
+
+		cout <<endl;
+		
+		cout << "  +";
+		for(int j = 0; j < board[0].size(); j++){
+				cout << "---+";
+
+		}
+
+		cout << endl;
+		
+		for(int i = 0; i < board.size(); i++){
+				cout << i << " ";
+				for(int j = 0; j < board[i].size(); j++){
+						cout << "| ";
+						switch(board[i][j]){
+						case 1:
+								cout << "X";
+								break;
+						case 0:
+								cout << " ";
+								break;
+						case -1:
+								cout << "O";
+						}
+						
+						cout <<" ";
+						//					cout << i <<  j << " ";
+				}
+				cout << "|" <<endl;
+				cout << "  +";
+				for(int j = 0; j < board[0].size(); j++){
+						cout << "---+";
+
+				}
+
+				cout << endl;
+	 
+		}
+		
+		
+}
+
+int Board::move(int i, int j, int xo){
+		if(i < BOARD_HEIGHT
+			 && i > 0
+			 && j < BOARD_WIDTH
+			 && j >0){
+				if(board[i][j] == 0){
+						board[i][j] = xo;
+						return LEGAL_MOVE;
+				}
+				else{
+						return WRONG_MOVE;
+				}
+		}
+		else{
+				return WRONG_MOVE;
+		}
+}
+
+void Board::flip_board(){
+
+		for(int i = 0; i < board.size(); i++){
+
+				for(int j = 0; j < board[i].size(); j++){
+
+						board[i][j] *= -1;
+
+				}
+
+		}
+
+
+}
+
+
+void Board::reset_board(){
+
+		for(int i = 0; i < board.size(); i++){
+
+				for(int j = 0; j < board[i].size(); j++){
+
+						board[i][j] = 0;
+
+				}
+
+		}
+		
+
+}
+
+int Board::board_check(){
+
+		bool x_win = false;
+		bool o_win = false;
+		bool tie = true;
+		
+		if((board[0][0] == board[1][1]) &&
+			 (board[1][1] == board[2][2]) &&
+			 (board[0][0] != 0)){
+				//print_board();
+				
+				if(board[0][0] == 1){
+						x_win = true;
+				}
+				else if(board[0][0] == -1){
+
+						o_win = true;
+				}
+		
+				
+		}
+		
+		else if((board[0][2] == board[1][1]) &&
+						(board[1][1] == board[2][0]) &&
+						(board[0][2] != 0)){
+				//	print_board();
+				
+				if(board[0][2] == 1){
+						x_win = true;
+				}
+				else if(board[0][2] == -1){
+						o_win = true;
+				}
+				
+		}
+		else{
+				for(int i =0; i < board[0].size();i++){
+						if((board[0][i] == board[1][i]) &&
+							 (board[1][i] == board[2][i]) &&
+							 (board[2][i] != 0)){
+								//			print_board();
+								
+								
+								if(board[2][i] == 1){
+										x_win = true;
+								}
+								else if(board[2][i] == -1){
+										o_win = true;
+								}
+								break;
+						}
+				}
+				for(int i =0; i < board.size();i++){
+						if((board[i][0] == board[i][1]) &&
+							 (board[i][1] == board[i][2]) &&
+							 (board[i][2] != 0)){
+								//		print_board();
+								
+								if(board[i][2] == 1){
+										x_win = true;
+								}
+								else if(board[i][2] == -1){
+										o_win = true;
+								}
+								
+						}
+						
+				}
+						
+		}	 
+		
+		for(int i = 0; i < board.size(); i++){
+				for(int j = 0; j < board[i].size(); j++){
+						
+						if(board[i][j] == 0){
+								tie = false;
+								break;
+						}
+				}
+		}
+
+		if(x_win == true){
+				return 10;
+		}
+		else if( o_win == true){
+				return -10;
+				
+		}
+		else if( tie == true){
+
+				return 1;
+		}
+
+		return 0;
+		
+}
+
+
+void set_input_neurons(Board b, network *net){
+		net->set_neuron(0 , b.board[0][0]);
+		net->set_neuron(1, b.board[0][1]);
+		net->set_neuron(2 , b.board[0][2]);
+
+		net->set_neuron(3 , b.board[1][0]);
+		net->set_neuron(4 , b.board[1][1]);
+		net->set_neuron(5 , b.board[1][2]);
+
+		net->set_neuron(6 , b.board[2][0]);
+		net->set_neuron(7 , b.board[2][1]);
+		net->set_neuron(8 , b.board[2][2]);				
+
+}
+
+int set_board_from_network(Board &b, network net, int xo){
+		// second to last -> x
+		// last -> y
+
+		int max_dex = 0;
+		int max = 0;
+		int score = 0;
+		for(int i = net.size()-9; i < net.size();i++){
+				if(net.return_neuron(i)>max){
+						max = net.return_neuron(i);
+						max_dex= i;
+				}
+
+		}
+
+		
+		if(max_dex == net_size() -9){
+				score = b.move(0,0,xo);
+		}
+		else if( max_dex == net_size() - 8){		
+				score = b.move(0,1,xo);
+		}
+				
+		else if( max_dex == net_size() - 7){		
+				score = b.move(0,2,xo);
+		}
+
+
+
+		else if ( max_dex ==  net_size() - 6){		
+				score = b.move(1,0,xo);
+		}
+		else if( max_dex == net_size() - 5){
+				score = b.move(1,1,xo);
+		}
+		else if(max_dex == net_size() - 4){
+				score = b.move(1,2,xo);
+		}
+
+
+		else if(max_dex == net_size() - 3){
+				score = b.move(2,0,xo);
+		}
+		else if(max_dex == net_size() - 2){
+				score = b.move(2,1,xo);
+		}
+		else if(max_dex == net_size() - 1){
+				score = b.move(2,2,xo);
+		}
+				
+		return score;
+		
+}	
+				
+				
+		
+
+}
+
+int main(int argc, char *argv[]) {
+
+		int last_neuron;
+		int second_to_last_neuron;
+		
+		int x;
+		int y;
+
+		int win_check;
+		
+		int score_x = 0;
+		int score_o = 0;
+		srand(time(NULL));
+		
+		Board b;
+
+		int rand_i, rand_j, rand_xo;
+
+		Random random;
+
+		cout << "AV HI" << endl;
+ 	
+
+		static const int arr[] = {9,9};
+		vector<int> layers (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+
+		vector<network*> net_vec;
+		vector<int> score_vec(NET_NUM);
+		
+		for(int i = 0; i < NET_NUM; i++){
+
+				net_vec.push_back(new network);
+				net_vec[i]->gen_create(layers);
+				
+				score_vec[i] = 0;
+
+		}
+
+
+				
+		for(int round = 1; round < 100000; round++){
+				for(int i = 0; i < NET_NUM-1; i+=2){
+						b.reset_board();
+						rand_i = random.random_int() % BOARD_WIDTH;
+						rand_j = random.random_int() % BOARD_HEIGHT;
+						rand_xo = (random.random_int() % 2); 
+						if(rand_xo == 0){
+								rand_xo = -1;
+						}
+						
+						b.move(rand_i, rand_j, rand_xo);
+						
+						int time = 0;
+						
+						while(time < 9){
+								
+						
+						
+						
+// Running X neruons
+								set_input_neurons(b, net_vec[i]);
+
+								net_vec[i]->gen_run(9);
+						
+								last_neuron = net_vec[i]->size() - 1;
+								second_to_last_neuron = net_vec[i]->size() - 2;
+						
+								x = abs(int(net_vec[i]->return_neuron(second_to_last_neuron))); 
+								y = abs(int(net_vec[i]->return_neuron(last_neuron)));
+
+
+				
+								//cout << time << " X coors:" << x << " " << y << endl;
+				
+								score_vec[i] += b.move(y,x,1);
+								
+								win_check = b.board_check();
+
+								if(win_check == 10){
+										score_vec[i] += WIN;
+										score_vec[i+1] += LOSE;
+										break;
+								}
+								else if (win_check == 1){
+										score_vec[i] += TIE;
+										score_vec[i+1] += TIE;
+										break;
+								}
+								else if(win_check == -10){
+										score_vec[i+1] += WIN;
+										score_vec[i] += LOSE;
+										break;
+								}
+
+								// display x turn
+
+								
+								// cout << "time: " << time <<endl;
+								// cout << "X: " << i << " O: " <<i+1 <<endl; 
+								// b.print_board();
+
+								//
+
+								
+								// Running O Neurons
+
+								b.flip_board();
+
+								set_input_neurons(b, net_vec[i+1]);
+								b.flip_board();
+				
+								net_vec[i+1]->gen_run(9);
+
+								last_neuron = net_vec[i+1]->size() - 1;
+								second_to_last_neuron = net_vec[i+1]->size() - 2;
+				
+								x = abs(int(net_vec[i+1]->return_neuron(second_to_last_neuron))) ;
+								y = abs(int(net_vec[i+1]->return_neuron(last_neuron))) ;
+
+								score_vec[i+1] += b.move(y,x,-1);
+
+								win_check = b.board_check();
+
+
+								// display o turn
+
+								
+								// cout << "time: " << time <<endl;
+								// cout << "X: " << i << " O: " <<i+1 <<endl; 
+								// b.print_board();
+
+
+								//
+								
+								if(win_check == 10){
+//										cout << i << " wins" <<endl;
+										score_vec[i] += WIN;
+										score_vec[i+1] += LOSE;
+										break;
+								}
+								else if (win_check == 1){
+										//	cout << i << " and " << i+1 << " tie" <<endl;
+
+										score_vec[i] += TIE;
+										score_vec[i+1] += TIE;
+										break;
+								}
+								else if(win_check == -10){
+										//	cout << i + 1 << " wins" <<endl;
+
+										score_vec[i+1] += WIN;
+										score_vec[i] += LOSE;
+										break;
+								}
+
+
+								
+								time++;
+
+		
+				
+						}
+
+
+						
+						// cout << "time: " << time <<endl;
+						// 		cout << "X: " << i << " O: " <<i+1 << " / " << net_vec.size() <<endl; 
+						// 		b.print_board();
+
+						
+				}
+
+				
+
+				
+				double ave_score = 0;
+
+				vector<int> topten(10,0);
+				vector<int> topten_score(10,-1000);
+
+				int max_score = -200;
+				int max_index = 0;
+				for(int q = 0; q < NET_NUM; q++){
+
+						for(int j = 0; j < topten.size();j++){
+
+								if(score_vec[q] > topten_score[j]){
+										
+										for(int k = topten.size() - 1; k >j; k--){
+												topten_score[k] = topten_score[k-1];
+												topten[k] = topten[k-1];
+										}
+										topten_score[j] = score_vec[q];
+										topten[j] = q;
+										break;
+
+								}
+										
+						}
+
+
+
+
+
+						ave_score += score_vec[q];
+						if(score_vec[q] > max_score){
+								max_score = score_vec[q];
+								max_index = q;
+						}
+
+						//	cout << "Net_" << i << " " << score_vec[i] <<endl;
+
+
+				}
+
+				ave_score = ave_score/double(NET_NUM);
+				// cout << "The average score of round " << round  << " is: " << ave_score <<endl;
+				// cout << "The winner of round " << round<< " is:" <<endl;
+				// cout << "Net_" << max_index << "_" <<round << " " << score_vec[max_index] <<endl;
+				// cout << "The top ten are: ";
+				// for(int q = 0; q < topten.size();q++){
+				// 		cout << topten[q] <<  ":" << score_vec[topten[q]] << " ";
+				// }
+				// cout << endl << endl;
+
+				cout << ave_score << " " << score_vec[max_index] << endl;
+				
+//				net_vec[max_index]->display();
+
+
+				// net_vec[0]->display();
+				
+				// net_vec[14]->display();
+
+				vector<network*> new_net_vec;
+
+
+
+				for(int q = 0; q < NET_NUM; q++){
+						new_net_vec.push_back(new network);
+				}
+				
+				int index = 0;
+				for(int q = 0; q < topten.size(); q++){
+						for(int j = 0; j < topten.size();j++){
+								new_net_vec[index]->gen_breed(net_vec[q], net_vec[j], layers, .01, 0.1);
+								index++;
+						}
+
+		}
+
+
+				// for(int l = 0; l < NET_NUM; l++){
+				// 		net_vec[l]->display();
+
+				// }
+
+				// cout << "|-------------------------------------------------------|" << endl;
+				// for(int l = 0; l < NET_NUM; l++){
+				// 		new_net_vec[l]->display();
+
+				// }
+
+
+				for(int q = 0; q < NET_NUM; q++){
+
+						delete net_vec[q];
+
+						//						net_vec[i] = new_net_vec[i];
+
+				}
+
+				for(int q = 0; q < NET_NUM; q++){
+
+						net_vec[q] = new_net_vec[q];
+						score_vec[q] = 0;
+						//						net_vec[i] = new_net_vec[i];
+						
+				}
+
+				
+    }
+
+		
+				for(int q = 0; q < NET_NUM;q++){
+				
+				delete net_vec[q];
+				
+		}
+
+		
+		return 0;			
+}
+
+
+
+
+
+
+
+// WINDOW *tic_tac_toe_window;
+
+// WINDOW *score_window;
+
+
+		
+
+// int offsetx, offsety;
+
+		
+// curs_set(0);
+		
+// tic_tac_toe_window = newwin(WINDOW_HEIGHT,
+// 														WINDOW_WIDTH,
+// 														offsety,
+// 														offsetx);
+		
+		
+// score_window = newwin(4, 15, 0,	0);
+
+
+
+
+// 				initscr();
+// 				refresh();
+				
+// //				tic_tac_toe_window = Make_TTT_Window(tic_tac_toe_window, b, score_x, score_o);
+				
+// 				offsetx = (COLS - WINDOW_WIDTH) / 2;
+// 				offsety = (LINES - WINDOW_HEIGHT) / 2;
+				
+				
+// 				tic_tac_toe_window = newwin(WINDOW_HEIGHT,
+// 																		WINDOW_WIDTH,
+// 																		offsety,
+// 																		offsetx);
+
+
+// 				score_window = newwin(4, 15, 0,	0);
+
+
+
+				
+// 				box(tic_tac_toe_window, 0 , 0);
+		
+// 				mvwvline(tic_tac_toe_window, 1, 2, '|', 5); // does print to screen
+// 				mvwvline(tic_tac_toe_window, 1, 4, '|', 5); // does print to screen
+		
+// 				mvwhline(tic_tac_toe_window, 2, 1, '-', 5); // does print to screen
+// 				mvwhline(tic_tac_toe_window, 4, 1, '-', 5); // does print to screen
+		
+		
+// 				mvwaddch(tic_tac_toe_window, 2, 2, '|');
+// 				mvwaddch(tic_tac_toe_window, 2, 4, '|');
+// 				mvwaddch(tic_tac_toe_window, 4, 2, '|');
+// 				mvwaddch(tic_tac_toe_window, 4, 4, '|');
+
+// // score window
+// 				box(score_window, 0 , 0);
+
+				
+// 				///				printw("X Score: %d\nO Score: %d ", score_x, score_o);
+// 				mvwprintw(score_window, 1, 1,"X Score: %d", score_x);
+// 				mvwprintw(score_window, 2, 1,"O Score: %d", score_o);
+
+
+		
+// 				if(b.board[0][0] == 1){
+// 						mvwaddch(tic_tac_toe_window, 1, 1, 'X');
+// 				}
+// 				else if(b.board[0][0] == -1){
+// 						mvwaddch(tic_tac_toe_window, 1, 1, 'O');
+// 				}
+
+// 				if(b.board[0][1] == 1){
+// 						mvwaddch(tic_tac_toe_window, 1, 3, 'X');
+// 				}
+// 				else if(b.board[0][1] == -1){
+// 						mvwaddch(tic_tac_toe_window, 1, 3, 'O');
+// 				}
+// 				if(b.board[0][2] == 1){
+// 						mvwaddch(tic_tac_toe_window, 1, 5, 'X');
+// 				}
+// 				else if(b.board[0][2] == -1){
+// 						mvwaddch(tic_tac_toe_window, 1, 5, 'O');
+// 				}
+
+
+		
+// 				if(b.board[1][0] == 1){
+// 						mvwaddch(tic_tac_toe_window, 3, 1, 'X');
+// 				}
+// 				else if(b.board[1][0] == -1){
+// 						mvwaddch(tic_tac_toe_window, 3, 1, 'O');
+// 				}
+
+// 				if(b.board[1][1] == 1){
+// 						mvwaddch(tic_tac_toe_window, 3, 3, 'X');
+// 				}
+// 				else if(b.board[1][1] == -1){
+// 						mvwaddch(tic_tac_toe_window, 3, 3, 'O');
+// 				}
+// 				if(b.board[1][2] == 1){
+// 						mvwaddch(tic_tac_toe_window, 3, 5, 'X');
+// 				}
+// 				else if(b.board[1][2] == -1){
+// 						mvwaddch(tic_tac_toe_window, 3, 5, 'O');
+// 				}
+
+
+// 				if(b.board[2][0] == 1){
+// 						mvwaddch(tic_tac_toe_window, 5, 1, 'X');
+// 				}
+// 				else if(b.board[2][0] == -1){
+// 						mvwaddch(tic_tac_toe_window, 5, 1, 'O');
+// 				}
+
+// 				if(b.board[2][1] == 1){
+// 						mvwaddch(tic_tac_toe_window, 5, 3, 'X');
+// 				}
+// 				else if(b.board[2][1] == -1){
+// 						mvwaddch(tic_tac_toe_window, 5, 3, 'O');
+// 				}
+// 				if(b.board[2][2] == 1){
+// 						mvwaddch(tic_tac_toe_window, 5, 5, 'X');
+// 				}
+// 				else if(b.board[2][2] == -1){
+// 						mvwaddch(tic_tac_toe_window, 5, 5, 'O');
+// 				}
+
+// 				wrefresh(tic_tac_toe_window);
+// 				wrefresh(score_window);
+				
+
+// 				getch();
+// 				delwin(tic_tac_toe_window);
+// 				delwin(score_window);
+				
+				
+				
+// 				endwin();
+
+

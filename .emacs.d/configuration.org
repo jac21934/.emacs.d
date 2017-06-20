@@ -1,0 +1,560 @@
+#+TITLE: Emacs Configuration File
+#+AUTHOR: Jacob Carroll
+#+STARTUP: indent
+#+OPTIONS: toc:t 
+#+OPTIONS: num:nil
+
+* Set Personal Information
+Setting some personal information for ease of compilation into LaTeX later on.
+
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Jacob Carroll"
+      user-mail-address "jac21934@vt.edu"
+      calendar-latitude 37.2
+      calendar-longitude -80.4
+      calendar-location-name "Blacksburg, VA")
+#+END_SRC
+
+* Environment Settings
+
+Tell emacs to use Unicode-8.
+
+#+BEGIN_SRC emacs-lisp
+(set-language-environment "UTF-8")
+#+END_SRC
+
+Set startup window size.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(width . 100))
+#+END_SRC
+
+I don't like the startup splash, or the messages buffer.
+
+
+
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+(setq-default message-log-max nil)
+(kill-buffer "*Messages*")
+#+END_SRC
+
+Get's rid of yes or no questions, replaces them with y or n.
+
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+Remove the tool bar.
+
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode -1)
+#+END_SRC
+
+
+** Scrolling settings
+
+Set scrolling speed to not accelerate.
+
+#+BEGIN_SRC emacs-lisp
+(setq mouse-wheel-progressive-speed nil)
+#+END_SRC 
+
+When point goes outside the window, Emacs usually recenters the buffer point. I’m not crazy about that. This changes scrolling behavior to only scroll as far as point goes.
+
+#+BEGIN_SRC emacs-lisp
+(setq scroll-conservatively 100)
+#+END_SRC 
+
+** Scratch Message
+Sets the scratch message to be a helpful reminder for key bindings
+
+#+BEGIN_SRC emacs-lisp
+(setq initial-scratch-message 
+";; [C-x C-f] Open [C-x C-s] Save [C-x s] Save as [C-x b] S/w buf [C-x k] Kill buf
+;; [C-x 1] Del others [C-x 0] Del current [C-x 2/3] Split-H/V [C-x o] S/w window
+;; [C-a/e] Begin/End of line [M-f/b] Next/Back word [C/M-v] Next/Back page
+;; [C/M-d] Del char/word [C-s/r] search/r-search [M-%] replace")
+#+END_SRC
+
+* Repositories and File Loading
+** Repositories
+Setting up the package archives
+
+#+BEGIN_SRC emacs-lisp
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+("marmalade" . "https://marmalade-repo.org/packages/") 
+("melpa" . "https://melpa.org/packages/") 
+("org" . "http://orgmode.org/elpa/") ) )
+#+END_SRC 
+
+** Loading Files
+This recursively loads all paths in /elpa/. It was necessary for some reason.
+
+#+BEGIN_SRC emacs-lisp
+(let ((default-directory (expand-file-name "~/.emacs.d/elpa/"))) 
+ (setq load-path  
+ (append 
+ (let ((load-path (copy-sequence load-path)))
+   (append (copy-sequence (normal-top-level-add-to-load-path '(".")))
+   (normal-top-level-add-subdirs-to-load-path)))
+         load-path)))
+#+END_SRC
+
+* Directory Manager Settings
+** Dired
+Load up the assorted =dired= extensions.
+
+#+BEGIN_SRC emacs-lisp
+(require 'dired-x)
+(require 'dired+)
+(require 'dired-open)
+#+END_SRC 
+
+Open media with the appropriate programs.
+
+#+BEGIN_SRC emacs-lisp
+
+  (setq dired-open-extensions
+        '(("mkv" . "vlc")
+          ("mp4" . "vlc")
+          ("avi" . "vlc")))
+#+END_SRC 
+
+These are the switches that get passed to /ls/ when =dired= gets a list of files. We’re using:
+
+| Flag | Description                              |
+|------+------------------------------------------|
+| l    | Use the long listing format.             |
+| h    | Use human-readable sizes.                |
+| v    | Sort numbers naturally.                  |
+| A    | Almost all. Doesn’t include ”.” or ”..”. |
+
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dired-listing-switches "-lhvA")
+#+END_SRC 
+
+
+Kill buffers of files/directories that are deleted in =dired=.
+
+#+BEGIN_SRC emacs-lisp
+(setq dired-clean-up-buffers-too t)
+#+END_SRC 
+Always copy directories recursively instead of asking every time.
+
+#+BEGIN_SRC emacs-lisp
+(setq dired-recursive-copies 'always)
+#+END_SRC 
+
+Ask before recursively deleting a directory, though.
+
+#+BEGIN_SRC emacs-lisp
+(setq dired-recursive-deletes 'top)
+#+END_SRC 
+
+** NeoTree
+
+Setting up =NeoTree= and setting [f7] to toggle it. 
+
+#+BEGIN_SRC emacs-lisp
+(require 'neotree)
+(global-set-key [f7] 'neotree-toggle)
+#+END_SRC
+
+* PDF-Tools
+Turns =pdf-tools= on after startup
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'pdf-tools-install)
+#+END_SRC
+
+* Programming Settings
+** General Settings
+Make emacs delete on selection
+
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode t)               
+#+END_SRC
+
+Require line numbers in all programming models:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook 'linum-mode)
+#+END_SRC
+
+Smaller tab-width:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 2)
+#+END_SRC
+
+Show matching parenthesis:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'show-paren-mode)
+#+END_SRC
+
+** C/C++ Settings
+Set the default style to linux for c/c++ programming 
+#+BEGIN_SRC emacs-lisp
+(setq c-default-style "linux"
+      c-basic-offset 4)
+#+END_SRC
+
+* LaTeX
+Turn on =linum-mode= for Latex.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'latex-mode-hook 'linum-mode)
+#+END_SRC
+
+* Org-Mode
+** Initialization and Hooks
+Require =Org-mode=.
+
+#+BEGIN_SRC emacs-lisp
+(require 'org)
+#+END_SRC
+
+Setting up indenting for all =Org-mode= doc's.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook 'org-indent-mode)
+#+END_SRC
+
+Better bullets for org mode.
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC
+
+Make org source blocks hae syntax highlighting.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
+
+Make tabs act as if it were issued in a buffer of the language's major mode.
+
+#+BEGIN_SRC emacs-lisp
+;;(setq org-src-tab-acts-natively t)
+#+END_SRC
+
+Store my org files in ~/org, define the location of an index file (my main todo list), and archive finished tasks in ~/org/archive.org.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-directory "~/org")
+
+  (defun org-file-path (filename)
+    "Return the absolute address of an org file, given its relative name."
+    (concat (file-name-as-directory org-directory) filename))
+
+  (setq org-inbox-file "~/Dropbox/inbox.org")
+  (setq org-index-file (org-file-path "index.org"))
+  (setq org-archive-location
+        (concat (org-file-path "archive.org") "::* From %s"))
+#+END_SRC
+
+** Task Management
+I store all my todos in ~/org/index.org, so I’d like to derive my agenda from there.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-files (list org-index-file))
+#+END_SRC
+
+Hitting C-c C-x C-s will mark a todo as done and move it to an appropriate place in the archive.
+
+#+BEGIN_SRC emacs-lisp
+(defun hrs/mark-done-and-archive ()
+  "Mark the state of an org-mode item as DONE and archive it."
+  (interactive)
+  (org-todo 'done)
+  (org-archive-subtree))
+
+(define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
+#+END_SRC
+
+
+Record the time that a todo was archived.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-log-done 'time)
+#+END_SRC
+** Exporting
+
+Allow export to markdown and beamer (for presentations).
+
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-md)
+  (require 'ox-beamer)
+  (require 'ox-twbs)
+  #+END_SRC
+
+Allow =babel= to evaluate Emacs lisp, Ruby, dot, or Gnuplot code.
+
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (ruby . t)
+     (dot . t)
+     (gnuplot . t)))
+#+END_SRC
+
+Don't ask before evaluating code blocks.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+Associate the "dot" language with the =graphviz-dot= major mode.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+#+END_SRC
+
+Translate regular ol' straight quotes to typographically-correct curly quotes
+when exporting.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-smart-quotes t)
+#+END_SRC
+*** TeX configuration
+
+I rarely write LaTeX directly any more, but I often export through it with
+org-mode, so I'm keeping them together.
+
+Automatically parse the file after loading it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq TeX-parse-self t)
+#+END_SRC
+
+Always use =pdflatex= when compiling LaTeX documents. I don't really have any
+use for DVIs.
+
+#+BEGIN_SRC emacs-lisp
+  (setq TeX-PDF-mode t)
+#+END_SRC
+
+Enable a minor mode for dealing with math (it adds a few useful key bindings),
+and always treat the current file as the "main" file. That's intentional, since
+I'm usually actually in an org document.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (LaTeX-math-mode)
+              (setq TeX-master t)))
+#+END_SRC
+
+*** Exporting to HTML
+
+Don't include a footer with my contact and publishing information at the bottom
+of every exported HTML document.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-html-postamble nil)
+#+END_SRC
+
+*** Exporting to PDF
+
+I want to produce PDFs with syntax highlighting in the code. The best way to do
+that seems to be with the =minted= package, but that package shells out to
+=pygments= to do the actual work. =pdflatex= usually disallows shell commands;
+this enables that.
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
+
+Include the =minted= package in all of my LaTeX exports.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+#+END_SRC
+
+Include the =xcolors= package to all o my LaTeX exports.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-latex-packages-alist '("usenames,dvipsnames,svgnames" "xcolor"))
+  ;;(setq org-latex-listings 'minted)
+#+END_SRC
+
+
+
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-minted-options
+           '(("frame" "lines")
+             ("fontsize" "\\scriptsize")
+             ("bgcolor" "LightGray")))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
+
+** Visuals
+
+I prefer the tables to be significantly different from the colors used as the indentations.
+ 
+#+BEGIN_SRC emacs-lisp
+(custom-theme-set-faces 'user
+`(org-table ((t (:foreground "LightCoral")))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(custom-theme-set-faces 'user
+ `(org-link ((t (:foreground "IndianRed")))))
+#+END_SRC
+
+|---------------+--------------|
+| Example Table | [[Visuals][Example Link]] |
+|---------------+--------------|
+
+
+* Backups
+Backups are put in one directory.
+
+#+BEGIN_SRC emacs-lisp
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+#+END_SRC
+
+* Origami Mode
+Sets up =Origami-mode= for c++ and LaTeX, and sets up key-bindings
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'c++-mode-hook 'origami-mode)
+(add-hook 'latex-mode-hook 'origami-mode)
+(add-hook 'origami-mode-hook (lambda () (local-set-key (kbd "C-;") 'origami-recursively-toggle-node)))
+(add-hook 'origami-mode-hook (lambda () (local-set-key (kbd "C-:") 'origami-toggle-all-nodes)))
+#+END_SRC
+
+* Visuals and Themes
+** Current Theme
+Load the Tomorrow-eighties theme
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook (lambda () (load-theme 'sanityinc-tomorrow-eighties)))
+#+END_SRC 
+
+** Visual Line Mode
+
+Turn on the nicer visual line mode.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-visual-line-mode)
+#+END_SRC
+
+* Predictive Text
+** Company Mode
+Turns on =company-mode= on everywhere.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+* Compilation Shortcuts
+** Shortcuts
+Make *C-x C-a* compile in most programming modes.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'latex-mode-hook (lambda () (local-set-key "\C-x\C-a" 'tex-compile)))
+(add-hook 'c++-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
+(add-hook 'fortran-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
+(add-hook 'c-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (local-set-key "\C-x\C-a" 'eval-buffer)))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'graphviz-dot-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
+#+END_SRC
+
+** Definition of the compile function
+*** =C++-mode= definition.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'c++-mode-hook
+   (lambda ()
+	    (set (make-local-variable 'compile-command)
+					 (let ((file (file-name-nondirectory buffer-file-name)))
+					 (format "%s -o %s %s"
+									 (or (getenv "CC") "g++")
+									 (file-name-sans-extension file)
+									 file)))))
+#+END_SRC
+
+*** =Fortran-mode= definition.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'fortran-mode-hook
+					(lambda ()
+						(set (make-local-variable 'compile-command)
+						(let ((file (file-name-nondirectory buffer-file-name)))
+								 (format "%s -o %s %s"
+											 (or (getenv "CC") "gfortran -ffree-form")
+											 (file-name-sans-extension file)
+											 file)))))
+#+END_SRC 
+
+** Kill  Compilation Window 
+Gets rid of the annoying window if compilation is successful.
+
+#+BEGIN_SRC emacs-lisp
+(defun kill-compile-frame-if-successful (buffer string) 
+  " kill a compilation buffer if succeeded without warnings " 
+  (if (and 
+       (or (string-match "compilation" (buffer-name buffer)) 
+					 (string-match "tex-shell" (buffer-name buffer))
+					 )
+       (or (string-match "finished" string) 
+					 (string-match "Transcript written")
+					 )
+       (not 
+        (with-current-buffer buffer 
+          (search-forward "warning" nil t)))) 
+      (run-with-timer 1 nil 
+                      'delete-other-windows 
+											)))
+(add-hook 'compilation-finish-functions 'kill-compile-frame-if-successful)
+#+END_SRC
+
+* Sensitivity Mode
+A mode that never backs up or saves data
+
+#+BEGIN_SRC emacs-lisp
+(define-minor-mode sensitive-mode
+	"For sensitive files like password lists.
+It disables backup creation and auto saving.
+
+With no argument, this command toggles the mode.
+Non-null prefix argument turns on the mode.
+Null prefix argument turns off the mode."
+  ;; The initial value.
+  nil
+  ;; The indicator for the mode line.
+  " Sensitive"
+  ;; The minor mode bindings.
+  nil
+  (if (symbol-value sensitive-mode)
+		(progn
+	;; disable backups
+	(set (make-local-variable 'backup-inhibited) t)	
+	;; disable auto-save
+	(if auto-save-default
+		(auto-save-mode -1)))
+																				;resort to default value of backup-inhibited
+    (kill-local-variable 'backup-inhibited)
+																				;resort to default auto save setting
+    (if auto-save-default
+		(auto-save-mode 1))))
+#+END_SRC

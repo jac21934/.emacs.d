@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{kill\PYGZhy{}compile\PYGZhy{}frame\PYGZhy{}if\PYGZhy{}successful} \PYG{p}{(}\PYG{n+nv}{buffer} \PYG{n+nb}{string}\PYG{p}{)}
+	\PYG{l+s}{\PYGZdq{} kill a compilation buffer if succeeded without warnings \PYGZdq{}}
+	\PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nb}{and}
+			 \PYG{p}{(}\PYG{n+nb}{or} \PYG{p}{(}\PYG{n+nv}{string\PYGZhy{}match} \PYG{l+s}{\PYGZdq{}compilation\PYGZdq{}} \PYG{p}{(}\PYG{n+nv}{buffer\PYGZhy{}name} \PYG{n+nv}{buffer}\PYG{p}{))}
+					 \PYG{p}{(}\PYG{n+nv}{string\PYGZhy{}match} \PYG{l+s}{\PYGZdq{}tex\PYGZhy{}shell\PYGZdq{}} \PYG{p}{(}\PYG{n+nv}{buffer\PYGZhy{}name} \PYG{n+nv}{buffer}\PYG{p}{))}
+					 \PYG{p}{)}
+			 \PYG{p}{(}\PYG{n+nb}{or} \PYG{p}{(}\PYG{n+nv}{string\PYGZhy{}match} \PYG{l+s}{\PYGZdq{}finished\PYGZdq{}} \PYG{n+nb}{string}\PYG{p}{)}
+					 \PYG{p}{(}\PYG{n+nv}{string\PYGZhy{}match} \PYG{l+s}{\PYGZdq{}Transcript written\PYGZdq{}}\PYG{p}{)}
+					 \PYG{p}{)}
+			 \PYG{p}{(}\PYG{n+nb}{not}
+				\PYG{p}{(}\PYG{n+nv}{with\PYGZhy{}current\PYGZhy{}buffer} \PYG{n+nv}{buffer}
+					\PYG{p}{(}\PYG{n+nv}{search\PYGZhy{}forward} \PYG{l+s}{\PYGZdq{}warning\PYGZdq{}} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{))))}
+			\PYG{p}{(}\PYG{n+nv}{run\PYGZhy{}with\PYGZhy{}timer} \PYG{l+m+mi}{1} \PYG{n+no}{nil}
+											\PYG{l+s+ss}{\PYGZsq{}delete\PYGZhy{}other\PYGZhy{}windows}
+											\PYG{p}{)))}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}compilation\PYGZhy{}finish\PYGZhy{}functions} \PYG{l+s+ss}{\PYGZsq{}kill\PYGZhy{}compile\PYGZhy{}frame\PYGZhy{}if\PYGZhy{}successful}\PYG{p}{)}
+\end{Verbatim}

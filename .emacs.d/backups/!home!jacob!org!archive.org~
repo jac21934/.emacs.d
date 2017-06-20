@@ -1,0 +1,89 @@
+
+Archived entries from file /home/jacob/todo.org
+
+
+* From todo.org
+
+** DONE Text Dad
+- State "DONE"       from "TODO"       [2017-05-04 Thu 14:21]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-05-07 Sun 13:31
+:ARCHIVE_FILE: ~/todo.org
+:ARCHIVE_CATEGORY: todo
+:ARCHIVE_TODO: DONE
+:END:
+
+** DONE Writeup Semester Overview and Summer Plans for Tauber.    :Research:
+DEADLINE: <2017-05-03 Wed>
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-05-07 Sun 13:31
+:ARCHIVE_FILE: ~/todo.org
+:ARCHIVE_CATEGORY: todo
+:ARCHIVE_TODO: DONE
+:END:
+
+** DONE 2016 Taxes                                                    :bills:
+- State "DONE"       from "TODO"       [2017-05-07 Sun 11:10]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-05-07 Sun 13:31
+:ARCHIVE_FILE: ~/todo.org
+:ARCHIVE_CATEGORY: todo
+:ARCHIVE_TODO: DONE
+:END:
+
+** DONE Pay March 2016 Bills
+- State "DONE"       from "DONE"       [2017-05-07 Sun 13:31]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-05-07 Sun 13:31
+:ARCHIVE_FILE: ~/todo.org
+:ARCHIVE_CATEGORY: todo
+:ARCHIVE_TODO: DONE
+:END:
+*** DONE Power                                                      :bills:
+| Month       | $$$ |
+|-------------+-----|
+| March-April | 162 |
+| April-May   | 177 |
+
+*** DONE Internet                                                   :bills:
+| Month | $$$ |
+|-------+-----|
+| April |  88 |
+
+*** DONE Water                                                      :bills:
+| Month | $$$ |
+|-------+-----|
+| April | 150 |
+
+** DONE Neural Network Poster                                     :Research:
+CLOSED: [2017-05-16 Tue 13:08]
+- State "DONE"       from "TODO"       [2017-05-16 Tue 13:08]
+- State "DONE"       from "DONE"       [2017-05-07 Sun 13:31]
+DEADLINE: <2017-05-13 Sat>
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-05-16 Tue 13:09
+:ARCHIVE_FILE: ~/todo.org
+:ARCHIVE_CATEGORY: todo
+:ARCHIVE_TODO: DONE
+:END:
+*** DONE Create Title
+Avalanches in Neural Networks
+*** DONE Make Images For Poster
+CLOSED: [2017-05-16 Tue 13:08]
+- State "DONE"       from "TODO"       [2017-05-16 Tue 13:08]
+*** DONE Write Sections
+CLOSED: [2017-05-16 Tue 13:08]
+- State "DONE"       from "TODO"       [2017-05-16 Tue 13:08]
+**** Introduction
+***** Individual Neurons
+***** Network of Neurons
+***** Learning (Hebbian/Feedforward/Hoppfield)
+**** Avalanches
+**** Control Possibilities
+***** Deep Brain Stimulation
+***** Pruning weights?
+
+*** DONE Fix "Simplify Arrow"
+CLOSED: [2017-05-16 Tue 13:08]
+- State "DONE"       from "TODO"       [2017-05-16 Tue 13:08]
+

@@ -1,0 +1,204 @@
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[10pt]{letter} % Use the res.cls style, the font size can be changed to 11pt or 12pt here
+
+\usepackage{helvet} % Default font is the helvetica postscript font
+\usepackage[margin=0.75in]{geometry}
+%\usepackage[left=0.75in, right=0.75in, top=0.5in, bottom=0.75in]{geometry}
+
+\usepackage{enumitem}
+
+\setlength{\textwidth}{7in} % Text width of the document
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND ADDRESS SECTION
+%----------------------------------------------------------------------------------------
+
+\moveleft.5\hoffset\centerline{\Large\bf Jacob A. Carroll} % Your name at the top
+\vspace{3mm}
+\moveleft.5\hoffset\centerline{\large\bf Resume}
+\vspace{-2mm}
+\hrulefill
+ 
+%\moveleft\hoffset\vbox{\hrule width\resumewidth height 1pt}\smallskip % Horizontal line after name; adjust line thickness by changing the '1pt'
+ 
+\moveleft.5\hoffset\centerline{210 Janie Lane} % Your address
+\moveleft.5\hoffset\centerline{Blacksburg, Virginia 24060}
+\moveleft.5\hoffset\centerline{(540)-532-6890 or jac21934@vt.edu}
+
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+%----------------------------------------------------------------------------------------
+
+
+%\vspace{.25in}
+
+{\bf EDUCATION}
+
+%\section{EDUCATION}
+
+{\sl Doctor of Philosophy,} Physics \hfill  Expected May 2019\\
+Virginia Tech, Blacksburg, VA \\ % expected May 2018 \\
+Concentration: Soft Condensed Matter and Biological Systems \\
+GPA: 3.54
+
+{\sl Master of Science,} Physics \hfill  May 2016\\
+Virginia Tech, Blacksburg, VA \\ % expected May 2016\\
+Concentration: Soft Condensed Matter and Biological Systems \\
+GPA: 3.54
+
+{\sl Bachelor of Science,} Physics \hfill  December 2014\\
+Virginia Tech, Blacksburg, VA\\ % December 2014 \\
+GPA: 3.80
+
+{\sl Bachelor of Science,} Mathematics \hfill  December 2014\\
+Virginia Tech, Blacksburg, VA\\ %, December 2014 \\
+GPA: 3.80
+
+ \vspace{.5cm}
+%----------------------------------------------------------------------------------------
+%	PROFESSIONAL EXPERIENCE SECTION
+%----------------------------------------------------------------------------------------
+
+
+ 
+
+{\bf PUBLICATIONS}
+
+\begin{itemize}[leftmargin=1.1cm] %\itemsep -2pt
+\item[(2016)]  {\bf Carroll J.}, Raum M., Forsten-Williams K. and T\"{a}uber U. C. Ligand-receptor binding kinetics in surface plasmon resonance cells: a Monte Carlo analysis. {\sl Physical Biology} {\bf 13}.
+\end{itemize}
+
+\vspace{.5cm}
+
+
+{\bf EXPERIENCE}
+
+{\sl Graduate Researcher} \hfill Spring 2015 - Present\\
+Condensed Matter Theory Group, Virginia Tech
+
+
+\begin{minipage}{11cm}
+%\noident
+\begin{itemize}% \itemsep -2pt
+\item Used Monte Carlo methods to analyze the binding dynamics of ligand receptor bonds in surface plasmon resonance cells and highlight the failings of a mean field analysis.
+\item Programmed neural network software in C++ to analyze the learning dynamics of recurrent Hebbian networks, and explored how neural avalanches react to perturbations of individual neurons. 
+%% \item Used Monte Carlo methods to analyze the binding dynamics\\ of ligand receptor bonds in surface plasmon resonance cells.
+%% \item Programmed neural network software to analyze the learning dynamics of reccurent Hebbian forward networks. 
+\end{itemize}
+\end{minipage}
+
+\vspace{.25cm}
+
+%\newpage
+
+{\sl Graduate Teaching Assistant} \hfill Spring 2015 - Present\\
+Department of Physics, Virginia Tech
+%\vspace{-.25cm}
+
+
+\begin{minipage}{11cm}
+%\noident
+\begin{itemize} %\itemsep -2pt
+\item Led undergraduates through introductory physics experiments in laboratory settings.
+\item Provided daily tutoring to both groups and individuals in physics topics ranging from an introductory to graduate level. 
+\end{itemize}
+\end{minipage}
+
+\vspace{.25cm}
+
+\newpage
+
+{\sl Financial Research Programmer} \hfill  Summer 2014\\
+Independent Research
+%\vspace{-.25cm}
+
+\begin{minipage}{11cm}
+%\noident
+\begin{itemize} %\itemsep -2pt
+\item Wrote automated software in Python and C++ to create and fill a MySQL database with high dimensional stock options data.
+%\item Used the Black Schols
+\item Analyzed this high dimensional data with cluster analysis methods such as DBSCAN, k-means clustering, and feed forward and SOM neural networks.
+\end{itemize}
+\end{minipage}
+
+
+\vspace{.25cm}
+
+{\sl Undergraduate Research Assistant} \hfill Fall 2013 - Fall 2014\\
+Department of Physics, Virginia Tech
+%\vspace{-.25cm}
+
+\begin{minipage}{11cm}
+%\noident
+\begin{itemize} %\itemsep -2pt
+\item Applied research skills coupled with knowledge of high level mathematics to locate and integrate applicable theorems into a newly proposed framework of quantum mechanics.
+\end{itemize}
+\end{minipage}
+
+
+%----------------------------------------------------------------------------------------
+%	COMPUTER SKILLS SECTION
+%----------------------------------------------------------------------------------------
+
+
+\vspace{.5cm}
+
+{\bf COMPUTER SKILLS} 
+
+\begin{itemize}[leftmargin=4.15cm] %\itemsep -2pt
+\item[{\sl Languages \& Software:\ \ \ } ]  C\texttt{++} ({\sl expert}), Python ({\sl expert}), \LaTeX, R, Mathematica, Octave/MatLab, OpenCV, OpenGl, MySQL, SVN, Microsoft Office
+
+\item[{\sl Computational Methods:} ] K-means clustering; DBSCAN; Monte Carlo methods; Feed forward, Hopfield and SOM neural networks
+
+\item[{\sl Operating Systems: \ \ \ \ \ \ } ] Unix/Linux, Microsoft Windows 
+\end{itemize}
+
+\vspace{.5cm}
+ 
+%----------------------------------------------------------------------------------------
+{\bf HONORS \& AWARDS}
+
+{\it Lubna R. Ijaz Scholarship} \hfill Awarded Spring 2017\\
+Physics Education Scholarship 
+
+{\it William E. Hassinger Graduate Fellowship} \hfill Awarded Spring 2016\\
+Graduate Physics Scholarship
+
+{\it Virginia Tech CSMB Student Travel Award} \hfill Awarded Spring 2017\\
+Graduate Physics Award
+
+\vspace{.5cm}
+
+%----------------------------------------------------------------------------------------
+%	Talks and Presentations
+%---------------------------------------------------------------------------------------- 
+{\bf TALKS \& PRESENTATIONS}
+\setlength\parindent{12pt}
+
+\noindent {\sl Ligand-Receptor Binding Kinetics in Surface Plasmon Resonance Cells: A Monte Carlo Analysis}\\
+\indent Second Molecular Biophysics Symposium, Virginia Tech \hfill Spring 2017\\
+\indent APS March Meeting, New Orleans LA \hfill Spring 2017\\
+\indent 2016 SESAPS Conference, University of Virginia \hfill Fall 2016
+
+\noindent {\sl Ligand Binding Dynamics in Surface Plasmon Resonance Cells (Poster)}\\  
+\indent Center for Soft Matter and Biological Physics Symposium, Virginia Tech \hfill Spring 2016
+
+\noindent{\sl An Introduction to Neural Networks}\\ 
+\indent Condensed Matter Theory Seminar, Virginia Tech  \hfill Spring 2016 
+
+\noindent{\sl Binding kinetics of ligands in surface plasmon resonance cells} \\ 
+\indent APS March Meeting, Baltimore MA \hfill Spring 2016\\
+\indent Condensed Matter Theory Seminar, Virginia Tech \hfill Fall 2015 
+
+\noindent{\sl Ligand binding kinetics in surface plasmon resonance devices: A Monte Carlo simulation analysis}\\
+\indent Third Annual Virginia Soft Matter Workshop, University of Virginia \hfill Fall 2015
+
+\end{document}

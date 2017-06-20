@@ -1,0 +1,862 @@
+#include "network.h"
+
+using namespace std;
+
+
+int network::input_net(string filename){
+
+		deconstruct();
+
+    ifstream inFile;
+    inFile.open(filename.c_str());
+
+    if(!inFile){
+		cout << "ERROR: No file by name of " << filename << ". Stopping initialization..." << endl;
+	
+	return -1;
+    }
+
+    int redo = 0;
+
+    while(inFile){
+
+		check_input(inFile);
+
+    }
+
+    inFile.seekg(0, ios::beg);
+
+    while(inFile){
+
+		check_input(inFile);
+
+    }
+    
+
+    inFile.close();
+
+    
+//    inFile.open(filename.c_str());
+    
+//  while(inFile){
+
+//	check_input(inFile);
+
+//    }
+    
+
+//    inFile.close();
+
+    return 0;
+}
+
+void network::check_input(ifstream& inFile){
+
+		string input;
+
+    string input_buff = "";
+
+    getline(inFile, input);
+
+    if(input[0] == '#'){
+	
+		if(input.substr(1,9) == "NET_SIZE:"){
+		input.erase(0,10);
+	    
+	    input_buff = remove_whitespace(input);
+
+	    input_buff = capitalize_string(input_buff);
+
+	    int buff = atoi(input_buff.c_str());
+	    if(buff > net_size){
+		net_size = buff;
+		construct();
+	    }
+	    
+	}
+
+	else if (input.substr(1,11) == "NEURON_VEC:"){
+
+		size_t start_index = input.find("{");
+	    size_t end_index = input.find("}");
+		
+	    int size_buff = 1;
+	    int k = int(start_index);
+	    while(k < int(end_index)){
+		if( input[k] == ','){
+		size_buff++;
+		    
+		}
+		k++;
+		
+	    }
+	    
+	    if( size_buff > net_size){
+		net_size = size_buff;
+		construct();
+	    }
+	    int loc = int(start_index) + 1;
+	    
+	    for(int i = 0; i < net_size; i++){
+		
+		for(int j = loc; j <= end_index; j++){
+		    
+		if(input[j] == ',' || input[j] == '}'){
+			
+		neuron[i] = atof(input.substr(loc, abs(loc-j)).c_str());
+			loc = j +1;
+			break;
+		    }
+		}
+	    }
+	}
+
+	else if (input.substr(1,12) == "AVALANCHE_H:"){
+		input.erase(0,13);
+	    input_buff = remove_whitespace(input);
+	    
+	    av_h = atof(input.c_str());
+	   
+	}
+
+	else if (input.substr(1,14) == "AVALANCHE_MAX:"){
+		input.erase(0,15);
+	    input_buff = remove_whitespace(input);
+	    
+	    av_max = atof(input.c_str());
+	   
+	}
+
+	else if (input.substr(1,11) == "NEURON_MAX:"){
+		input.erase(0,12);
+	    input_buff = remove_whitespace(input);
+	    
+	    n_max = atof(input.c_str());
+	   
+	}
+
+
+	else if (input.substr(1,13) == "NEURON_NOISE:"){
+		input.erase(0,14);
+	    int break_index = 0;
+	    bool start_flag = false;
+	    for(int i = 0; i < input.size(); i++)
+	    {
+		if(input[i] == ' ' || input[i] == '\t'){
+		    
+		if(start_flag == false){
+		continue;
+		    }
+		    else{
+		break_index = i;
+			break;
+		    }
+		}
+		else{
+		start_flag = true;
+		}
+		
+		}
+	    
+	    if(break_index == 0){
+		neuron_noise_mean = atof(remove_whitespace(input).c_str());
+		neuron_noise_width = 0;
+	    }
+	    string noise_mean_buff =  remove_whitespace(input.substr(1, break_index-1));
+	    string noise_width_buff = remove_whitespace(input.substr(break_index+1, input.size()-1));
+
+	    neuron_noise_mean = atof(noise_mean_buff.c_str());
+	    
+	    if(noise_width_buff == ""){
+		neuron_noise_width = 0;
+	    }
+	    else{
+		neuron_noise_width = atof(noise_width_buff.c_str());
+	    }
+	}
+
+	else if (input.substr(1,13) == "WEIGHT_NOISE:"){
+		input.erase(0,14);
+	    
+	    int break_index = 0;
+	    bool start_flag = false;
+	    for(int i = 0; i < input.size(); i++)
+	    {
+		if(input[i] == ' ' || input[i] == '\t'){
+		    
+		if(start_flag == false){
+		continue;
+		    }
+		    else{
+		break_index = i;
+			break;
+		    }
+		}
+		else{
+		start_flag = true;
+		}
+		
+		}
+	    
+	    if(break_index == 0){
+		weight_noise_mean = atof(remove_whitespace(input).c_str());
+	        weight_noise_width = 0;
+	    }
+	    string noise_mean_buff =  remove_whitespace(input.substr(1, break_index-1));
+	    string noise_width_buff = remove_whitespace(input.substr(break_index+1, input.size()-1));
+
+	    weight_noise_mean = atof(noise_mean_buff.c_str());
+	    
+	    if(noise_width_buff == ""){
+		weight_noise_width = 0;
+	    }
+	    else{
+		weight_noise_width = atof(noise_width_buff.c_str());
+	    }
+	    
+	}
+
+
+	else if (input.substr(1,10) == "MAX_TURNS:"){
+		input.erase(0,11);
+	    input_buff = remove_whitespace(input);
+
+	    max_turns = atoi(input.c_str());
+	    
+	}
+
+	
+	
+
+	else if( input.substr(1,16) == "SET_ALL_WEIGHTS:"){
+
+//	    cout << input << " ";
+		input.erase(0,17);
+
+	    input_buff = remove_whitespace(input);
+
+	    input_buff = capitalize_string(input_buff);
+
+	    if(net_size > 0){
+		if( input_buff == "RANDOM"){
+		randomize_weights(0);
+		}
+		
+		else{
+		double doub_buff = atof(input_buff.c_str());
+		    for(int i = 0; i < net_size; i++){
+		for(int j = 0; j < net_size; j++){
+		
+		weight[i][j] = doub_buff;
+			}
+		    }
+		    
+		}
+	    }
+
+	    else{
+//		cout << "ERROR: Network size not defined at SET_ALL_WEIGHTS. Moving to next line..." << endl;
+		return;
+	    }
+
+
+	}
+
+
+	else if( input.substr(1,13) == "INPUT_DEGREE:"){
+
+	   
+		input.erase(0,14);
+
+
+	    input_buff = remove_whitespace(input);
+
+	    input_buff = capitalize_string(input_buff);
+
+	    if( input_buff == ""){
+		return;
+	    }
+
+	    int degree = atoi(input_buff.c_str());
+	    
+	    if(degree > net_size){
+		return;
+	    }
+
+	    else{
+		set_input_degree(degree);
+	    }
+	    
+
+
+
+	}
+
+	else if( input.substr(1,14) == "OUTPUT_DEGREE:"){
+	   	   
+		input.erase(0,15);
+
+	    input_buff = remove_whitespace(input);
+
+	    input_buff = capitalize_string(input_buff);
+	   
+	    if( input_buff == ""){
+		return;
+	    }
+	    
+	    int degree = atoi(input_buff.c_str());
+	    
+	    if(degree > net_size){
+		return;
+	    }
+	    
+	    else{
+		set_output_degree(degree);
+	    }
+	}
+
+
+	else if( input.substr(1,14) == "LEARNING_RATE:"){
+	 
+		input.erase(0,15);
+
+	}
+
+	else if( input.substr(1,16) == "SET_ALL_NEURONS:"){
+	 
+		input.erase(0,17);
+
+	    input_buff = remove_whitespace(input);
+
+	    input_buff = capitalize_string(input_buff);
+
+	    if(net_size > 0){
+		if( input_buff == "RANDOM"){
+		randomize_neurons();
+		}
+		
+		else{
+		double doub_buff = atof(input_buff.c_str());
+		    for(int i = 0; i < net_size; i++){
+		neuron[i] = doub_buff;
+		    }
+		    
+		}
+	    }
+
+	    else{
+//		cout << "ERROR: Network size not defined at SET_ALL_NEURONS. Moving to next line..." << endl;
+		return;
+	    }
+
+
+	}
+
+	else if( input.substr(1,9) == "NET_TYPE:"){
+
+		input.erase(0,10);
+
+	    input_buff = remove_whitespace(input);
+
+	    input_buff = capitalize_string(input_buff);
+
+	    set_net_type(input_buff);
+
+	}
+	else if( input.substr(1,11) == "LEARN_TYPE:"){
+
+		input.erase(0,12);
+
+
+	    input_buff = remove_whitespace(input);
+
+	    input_buff = capitalize_string(input_buff);
+	    
+	    set_learn_type(input_buff);
+
+	}
+
+	else if( (input.substr(1,11) == "REFRACTORY:")){
+		
+		input.erase(0,12);
+	    
+	    input_buff = remove_whitespace(input);
+	    
+	    input_buff = capitalize_string(input_buff);
+	    
+	    if( input_buff == "TRUE"){
+		refractory = true;
+		
+		if(net_size > 0){
+		refrac_vec= new bool[net_size];
+		}
+	    }
+
+	    else{
+		refractory = false;
+	    }
+
+	}
+	
+	else if(input.substr(1,7) == "LAYERS:"){
+
+		size_t start_index = input.find("{");
+	    size_t end_index = input.find("}");
+	
+	    int size_buff = 1;
+	    int k = int(start_index);
+	    while(k < int(end_index)){
+		if( input[k] == ','){
+		size_buff++;
+		    
+		}
+		k++;
+		
+	    }
+	    
+	    int* layers = new int[size_buff];
+	    int loc = int(start_index) + 1;
+	    net_size = 0;
+	    
+	    for(int i = 0; i < size_buff; i++){
+		
+		for(int j = loc; j <= end_index; j++){
+		    
+		if(input[j] == ',' || input[j] == '}'){
+			
+		layers[i] = atoi(input.substr(loc, abs(loc-j)).c_str());
+			loc = j +1;
+			net_size += layers[i];
+			break;
+		    }
+		}
+	    }
+	    if(net_size >0){
+		construct();
+	    }
+	    else{
+		return;
+	    }
+	    
+	    int width = 0;
+	    int height = 0;
+	    for(int i = 0; i < size_buff; i++){
+		if(i > 0){
+		height += layers[i-1];
+		}
+		width +=layers[i];
+		
+		int layer_size = layers[i];
+		
+		if(i < size_buff - 1){
+		for(int j = 0; j < layers[i]; j++){
+		for(int k = 0; k < layers[i+1];k++){
+		weight[height+j][width+k] = 1;
+			}
+		    }
+		    
+		}
+	    }
+	    
+
+	}
+	
+	
+else if(input.substr(1,8) == "WEIGHTS:"){
+		vector<string> weight_buff(1);
+	    
+	    int placement = inFile.tellg();
+
+	    getline(inFile , weight_buff[0]);
+
+	    if(weight_buff[0][0] == '|'){
+
+		int k = 0;
+
+		while(true){
+
+		placement = inFile.tellg();
+		    string buff;
+		    getline(inFile, buff);
+
+		    if(buff[0] == '|'){
+		k++;
+
+			
+			weight_buff.push_back(buff);
+			
+		    }
+		    
+		    else break;
+
+		    
+		}
+		
+
+		vector< vector <double> > buff_val(weight_buff.size());
+
+
+
+		for(int i = 0; i < weight_buff.size(); i++){
+		    
+		bool pass = true;
+
+		    int loc = 1;
+
+		    while(pass){ 
+
+
+		for(int j = loc; j < weight_buff[i].size(); j++){
+			    
+		if( weight_buff[i][j] == ' ' 
+				|| weight_buff[i][j] == '|' 
+				|| weight_buff[i][j] == '\t'){
+				
+		if(weight_buff[i][j-1] == ' '
+				   || weight_buff[i][j-1] == '|'
+				   || weight_buff[i][j-1] == '\t'){
+				
+		if(weight_buff[i][j] == '|'){
+		pass = false;
+				    }
+    
+				    continue;
+
+				}
+
+				else{
+				    
+		buff_val[i].push_back(atof(weight_buff[i].substr(loc, abs(loc -j)).c_str()));
+				    //cout << buff_val
+				    loc = j+1;
+				
+				}
+				if(weight_buff[i][j] == '|'){
+		pass = false;
+				}
+
+				break;
+
+			    }
+			}
+		    }
+
+		    if( buff_val[i].size() != weight_buff.size()){
+//			cout << "ERROR: Non-square weight matrix. Initialization canceling..." << endl;
+		return;
+		    }
+
+
+		}
+		
+		if(net_size == 0){
+		 
+		net_size = weight_buff.size();
+		    construct();
+		}
+		
+//		else if (net_size != weight_buff.size()){
+
+		    if(weight_buff.size() > net_size){
+		net_size = weight_buff.size();
+			construct();
+			//out << "ERROR: Size conflict between weight matrix and network size. Initialization canceling..." << endl;
+			//turn;
+
+		    }
+		    //	}
+		
+		for(int i = 0; i < buff_val.size(); i++){
+		for(int j = 0; j < buff_val[i].size();j++){
+		weight[i][j] = buff_val[i][j];
+
+//			cout << buff_val[i][j] << " ";
+		    }
+//		    cout << endl;
+		}
+
+//		cout << k + 1 << endl;
+		
+	    }
+	    inFile.seekg(placement);
+
+	}
+    }
+}
+
+
+void network::set_input_degree(int degree){
+
+    if(net_size > 0 && net_size >= degree){
+				for(int i = 0; i < net_size; i++){
+						int k = net_size - degree;
+
+						for(int j = 0; j< net_size; j++){
+								if(weight[j][i] == 0){
+										k--;   
+								}
+						}
+		
+						while(k < 0){
+								int j = random.random_int() % net_size;
+								if(weight[j][i] != 0){
+										while(weight[j][i] != 0){
+												j = random.random_int() % net_size;
+										}
+		    
+								}
+								weight[j][i] = random.random_real();
+								k++;
+						}
+
+						while(k > 0){
+								int j = random.random_int() % net_size;
+								if(weight[j][i] == 0){
+										while(weight[j][i] == 0){
+												j = random.random_int() % net_size;
+										}
+		    
+								}
+								weight[j][i] = 0;
+								k--;
+						}
+	    
+				}
+    }
+}
+
+void network::set_output_degree(int degree){
+    if(net_size > 0 && net_size >= degree){
+				for(int i = 0; i < net_size; i++){
+						int k = net_size - degree;
+
+						for(int j = 0; j< net_size; j++){
+								if(weight[i][j] == 0){
+										k--;   
+								}
+						}
+		
+						while(k < 0){
+								int j = random.random_int() % net_size;
+								if(weight[i][j] != 0){
+										while(weight[i][j] != 0){
+												j = random.random_int() % net_size;
+										}
+		    
+								}
+								weight[i][j] = random.random_real();
+								k++;
+
+						}
+
+						while(k > 0){
+								int j = random.random_int() % net_size;
+								if(weight[i][j] == 0){
+										while(weight[i][j] == 0){
+												j = random.random_int() % net_size;
+										}
+		    
+								}
+								weight[i][j] = 0;
+								k--;
+						}
+	    
+				}
+    }
+}
+
+
+
+void network::set_net_type(string type){
+
+    net_type = type;
+
+}
+
+
+void network::set_learn_type(string learn){
+    learn_type = learn;
+}
+
+
+// INPUTING THE NETWORK:
+
+
+
+void network::input_weights(string filename){
+
+
+		ifstream inFile;
+	
+		inFile.open(filename.c_str());
+		char* sz;	
+		string buff;
+		vector< vector <double> > weight_buff;
+
+		int k = 0;
+		int q = 1;
+		int q_old = 1;
+
+		if(net_size!=0) deconstruct();
+	
+		while(inFile){
+				getline(inFile, buff);
+				if(buff.empty() == true){
+						break;
+				}
+
+				k++;
+
+	    
+				q = 1;
+				for(int i = 0; i < buff.length(); i++){
+						if(buff[i] == ' '){
+								q++;
+						}
+				}
+				if( k == 1){
+						q_old = q;
+				}
+				else if( q != q_old){
+//		cout << "q_old:" << q_old << " q:" << q << endl;
+
+						cout << "Warning: Non-square weight matrix. Initialization cancelled..." << endl;
+						return;
+				}
+				else{
+						//	cout << "q_old:" << q_old << " q:" << q << endl;
+						q_old = q;
+				}
+	    
+//	    cout << buff << endl;	
+		}
+		if(k == q){
+				net_size = q;
+		}
+		else{
+				cout << "Warning: Non-square weight matrix. Initialization cancelled..." << endl;
+				return;
+		}
+
+		inFile.clear();
+		inFile.seekg(0, ios::beg);
+
+
+// Putting weights into a vec(vec(double))
+
+		for(int i = 0; i < q; i++){
+				vector< double> buff;
+				for(int j = 0; j < q; j++){
+						string double_buff;
+						inFile >> double_buff;
+						buff.push_back(strtod(double_buff.c_str(), &sz));
+				}
+				weight_buff.push_back(buff);
+		}
+
+		inFile.close();
+
+// initialize weight matrix
+
+		construct();
+		for(int i = 0; i < q; i++){
+				for(int j = 0; j < q; j++){
+						//	cout << i << " " << j << ": " << weight_buff[i][j] << endl;
+		
+	
+						weight[i][j] = weight_buff[i][j]; 
+				}
+		}
+//	display();
+
+}
+
+	
+void network::randomize_weights(double percentage){
+
+		for(int i  = 0; i < net_size; i++){
+
+				for(int j = 0; j < net_size; j++){
+
+						double buff = random.random_real();
+						if( buff <= percentage){
+								weight[i][j] = -random.random_real();
+						}
+						else{
+								weight[i][j] = random.random_real();
+						}
+				}
+
+    }
+}
+
+void network::randomize_neurons(){
+    for(int i = 0; i < net_size; i++){
+	
+				neuron[i] =random.random_real(); // random neuron values from zero to one
+    }
+}
+
+
+void network::clear_diagonal(){
+
+    for(int i =0; i < net_size; i++){
+				weight[i][i] = 0;
+    }
+
+}
+
+void network::lower_triangular(){
+
+    for(int i = 0; i < net_size; i++){
+
+				for( int j = 0; j < net_size; j++){
+	    
+						if ( j >= i ){
+								weight[i][j] = 0;
+						}
+
+				}
+
+    }
+
+}
+
+
+void network::set_all_weights(double** input){
+
+    for(int i = 0; i < net_size; i++){
+				for(int j = 0; j < net_size; j++){
+						weight[i][j] = input[i][j];
+				}
+    }
+}
+
+void network::set_all_neurons(double* input){
+   
+    for(int  i = 0; i < net_size; i++){
+				neuron[i] = input[i];
+    }
+}
+
+void network::no_self_interact(){
+    for(int i = 0 ; i < net_size; i++){
+				set_weight(i,i,0.);
+    }
+}
+
+
+void network::set_neuron(int index, double value){
+    
+    if( (index >= 0) && (index < net_size)){
+				neuron[index] = value;
+    }
+
+}
+
+void network::set_weight(int neuron_A, int neuron_B, double weight_update){
+
+    if((neuron_A >=0) && (neuron_A < net_size) && (neuron_B >=0) && (neuron_B < net_size) ){
+				weight[neuron_A][neuron_B] = weight_update;
+    }
+}

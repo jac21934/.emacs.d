@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{inhibit\PYGZhy{}startup\PYGZhy{}message} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{setq\PYGZhy{}default} \PYG{n+nv}{message\PYGZhy{}log\PYGZhy{}max} \PYG{n+no}{nil}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{kill\PYGZhy{}buffer} \PYG{l+s}{\PYGZdq{}*Messages*\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

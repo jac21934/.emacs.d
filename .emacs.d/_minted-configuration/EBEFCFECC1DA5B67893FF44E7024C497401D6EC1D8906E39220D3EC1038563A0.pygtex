@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{let} \PYG{p}{((}\PYG{n+nv}{default\PYGZhy{}directory} \PYG{p}{(}\PYG{n+nv}{expand\PYGZhy{}file\PYGZhy{}name} \PYG{l+s}{\PYGZdq{}\PYGZti{}/.emacs.d/elpa/\PYGZdq{}}\PYG{p}{)))}
+ \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{load\PYGZhy{}path}
+ \PYG{p}{(}\PYG{n+nb}{append}
+ \PYG{p}{(}\PYG{k}{let} \PYG{p}{((}\PYG{n+nv}{load\PYGZhy{}path} \PYG{p}{(}\PYG{n+nv}{copy\PYGZhy{}sequence} \PYG{n+nv}{load\PYGZhy{}path}\PYG{p}{)))}
+	 \PYG{p}{(}\PYG{n+nb}{append} \PYG{p}{(}\PYG{n+nv}{copy\PYGZhy{}sequence} \PYG{p}{(}\PYG{n+nv}{normal\PYGZhy{}top\PYGZhy{}level\PYGZhy{}add\PYGZhy{}to\PYGZhy{}load\PYGZhy{}path} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}.\PYGZdq{}}\PYG{p}{)))}
+	 \PYG{p}{(}\PYG{n+nv}{normal\PYGZhy{}top\PYGZhy{}level\PYGZhy{}add\PYGZhy{}subdirs\PYGZhy{}to\PYGZhy{}load\PYGZhy{}path}\PYG{p}{)))}
+				 \PYG{n+nv}{load\PYGZhy{}path}\PYG{p}{)))}
+\end{Verbatim}

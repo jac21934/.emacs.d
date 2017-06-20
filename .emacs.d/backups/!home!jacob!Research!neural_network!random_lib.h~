@@ -1,0 +1,40 @@
+#ifndef RANDOM_LIBRARY_H
+#define RANDOM_LIBRARY_H 
+#include <stdlib.h>
+#include <climits>
+#include <limits>
+#include <cmath>
+class Random{
+
+	public:
+
+		double random_real();
+		double random_gauss(double, double);
+		double random_interval(double, double);
+
+		int random_int();
+		unsigned int random_uint();
+
+		long random_long();
+		unsigned long random_ulong();
+
+		void init_state();
+	
+		Random();
+		~Random();
+			
+
+	private:
+
+		unsigned long WELL512();
+
+		static unsigned long state[16];
+
+		static unsigned long index;
+
+
+
+};
+
+
+#endif

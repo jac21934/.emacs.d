@@ -1,0 +1,13 @@
+CPP_FILES :=$(wildcard src/*.cpp) #$(wildcard src/random_lib/*.cpp)
+OBJ_FILES := $(CPP_FILES:.cpp=.o) 
+INCLUDE_DIR = ./random_lib/
+
+tic: $(OBJ_FILES)
+	g++ -o $@ $^ -O1 -lncurses
+
+src/%.o: src/%.cpp src/network.h
+	g++ -c -o $@ $< -O1 -lncurses
+
+.PHONY: clean
+clean: 
+	rm -r ./src/*.o

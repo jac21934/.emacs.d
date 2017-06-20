@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Recipes</title>
+<!-- 2017-05-08 Mon 00:59 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Org-mode">
+<meta name="author" content="Jacob Carroll">
+
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+/* org mode styles on top of twbs */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-size: 18px;
+    margin-bottom: 105px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 101px;
+    background-color: #f5f5f5;
+}
+
+footer > div {
+    padding: 10px;
+}
+
+footer p {
+    margin: 0 0 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#table-of-contents {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+blockquote p {
+    font-size: 18px;
+}
+
+pre {
+    font-size: 16px;
+}
+
+.footpara {
+    display: inline-block;
+}
+
+figcaption {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+  padding-bottom: 15px;
+}
+
+/* from twbs docs */
+
+.bs-docs-sidebar.affix {
+    position: static;
+}
+@media (min-width: 768px) {
+    .bs-docs-sidebar {
+        padding-left: 20px;
+    }
+}
+
+/* All levels of nav */
+.bs-docs-sidebar .nav > li > a {
+    display: block;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus {
+    padding-left: 19px;
+    color: #A1283B;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 1px solid #A1283B;
+}
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+    padding-left: 18px;
+    font-weight: bold;
+    color: #A1283B;
+    background-color: transparent;
+    border-left: 2px solid #A1283B;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-docs-sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav > li > a:focus {
+    padding-left: 29px;
+}
+.bs-docs-sidebar .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav > .active:focus > a {
+    padding-left: 28px;
+    font-weight: 500;
+}
+
+/* Nav: third level (shown on .active) */
+.bs-docs-sidebar .nav .nav .nav {
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav .nav > li > a:focus {
+    padding-left: 39px;
+}
+.bs-docs-sidebar .nav .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav .nav > .active:focus > a {
+    padding-left: 38px;
+    font-weight: 500;
+}
+
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+    .bs-docs-sidebar .nav > .active > ul {
+        display: block;
+    }
+    /* Widen the fixed sidebar */
+    .bs-docs-sidebar.affix,
+    .bs-docs-sidebar.affix-bottom {
+        width: 213px;
+    }
+    .bs-docs-sidebar.affix {
+        position: fixed; /* Undo the static from mobile first approach */
+        top: 20px;
+    }
+    .bs-docs-sidebar.affix-bottom {
+        position: absolute; /* Undo the static from mobile first approach */
+    }
+    .bs-docs-sidebar.affix .bs-docs-sidenav,.bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+}
+@media (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .bs-docs-sidebar.affix-bottom,
+    .bs-docs-sidebar.affix {
+        width: 263px;
+    }
+}
+</style>
+<script type="text/javascript">
+$(function() {
+    'use strict';
+
+    $('.bs-docs-sidebar li').first().addClass('active');
+
+    $(document.body).scrollspy({target: '.bs-docs-sidebar'});
+
+    $('.bs-docs-sidebar').affix();
+});
+</script>
+</head>
+<body>
+<div id="content" class="container">
+<div class="row"><div class="col-md-9"><h1 class="title">Recipes</h1>
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Recipe</th>
+<th scope="col" class="text-left">Type</th>
+<th scope="col" class="text-left">Difficulty</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left"><a href="#sec-">Spicy Peanut Noodles</a></td>
+<td class="text-left">Pasta</td>
+<td class="text-left">Easy</td>
+<td class="text-right">3.23</td>
+</tr>
+
+<tr>
+<td class="text-left"><a href="#sec-">Navy Bean Soup With Sausage &amp; Spinach</a></td>
+<td class="text-left">Soup</td>
+<td class="text-left">Easy</td>
+<td class="text-right">9.42</td>
+</tr>
+
+<tr>
+<td class="text-left"><a href="#sec-">Chicken and Lime Soup</a></td>
+<td class="text-left">Soup</td>
+<td class="text-left">Easy</td>
+<td class="text-right">6.39</td>
+</tr>
+
+<tr>
+<td class="text-left"><a href="#sec-">Spinach White Bean Enchiladas with Pepper Jack Sauce</a></td>
+<td class="text-left">Beans &amp; Rice</td>
+<td class="text-left">Medium</td>
+<td class="text-right">6.72</td>
+</tr>
+
+<tr>
+<td class="text-left"><a href="#sec-">Cheesy Rigatoni Skillet with Mushrooms and Spinach</a></td>
+<td class="text-left">Pasta</td>
+<td class="text-left">Easy</td>
+<td class="text-right">8.76</td>
+</tr>
+
+<tr>
+<td class="text-left"><a href="#sec-">Monterrey Chicken Skillet</a></td>
+<td class="text-left">Pasta</td>
+<td class="text-left">Medium</td>
+<td class="text-right">8.11</td>
+</tr>
+
+<tr>
+<td class="text-left"><a href="#sec-">Bacon Bean and Potato Soup</a></td>
+<td class="text-left">Soup</td>
+<td class="text-left">Easy</td>
+<td class="text-right">7.76</td>
+</tr>
+</tbody>
+</table>
+
+<div id="outline-container-sec-" class="outline-2">
+<h2 id="sec-">Spicy Peanut Noodles</h2>
+<div class="outline-text-2" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredient</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">Any Pasta</td>
+<td class="text-left">1 lb</td>
+<td class="text-right">1.50</td>
+</tr>
+
+<tr>
+<td class="text-left">Peanut Butter</td>
+<td class="text-left">2/3 cup</td>
+<td class="text-right">0.60</td>
+</tr>
+
+<tr>
+<td class="text-left">Soy Sauce</td>
+<td class="text-left">1/4 cup</td>
+<td class="text-right">0.50</td>
+</tr>
+
+<tr>
+<td class="text-left">Cayenne Pepper</td>
+<td class="text-left">1/4 tsp</td>
+<td class="text-right">0.01</td>
+</tr>
+
+<tr>
+<td class="text-left">Honey</td>
+<td class="text-left">1 tsp</td>
+<td class="text-right">0.04</td>
+</tr>
+
+<tr>
+<td class="text-left">Vinegar</td>
+<td class="text-left">2 Tbsp</td>
+<td class="text-right">0.50</td>
+</tr>
+
+<tr>
+<td class="text-left">Garlic</td>
+<td class="text-left">2 cloves</td>
+<td class="text-right">0.05</td>
+</tr>
+
+<tr>
+<td class="text-left">Pasta Water</td>
+<td class="text-left">1/2-3/4 cups</td>
+<td class="text-right">0.00</td>
+</tr>
+
+<tr>
+<td class="text-left">Red Pepper Flakes</td>
+<td class="text-left">1-2 tsps</td>
+<td class="text-right">0.03</td>
+</tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<tbody>
+<tr>
+<td class="text-left"><b>Total Cost</b></td>
+<td class="text-right">3.23</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Instructions</b></h3>
+<div class="outline-text-3" id="text-">
+<ul class="org-ul">
+<li>Bring a pot of water to a boil and throw the pasta in, cook according to directions. While the pasta is boiling, dump all of the other ingredients except for the water into a heat-safe bowl.
+</li>
+
+<li>When the pasta is done, reserve up to 3/4 cup of the cooking water and drain the pasta.
+</li>
+
+<li>Slowly stream the cooking water into the bowl while whisking until you&rsquo;ve achieved a smooth sauce. Make it as thick or as thin as you like.
+</li>
+
+<li>Toss the pasta with the sauce and then serve into 4 individual bowls. Top with red pepper flakes if desired. 
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-" class="outline-2">
+<h2 id="sec-">Navy Bean Soup With Sausage &amp; Spinach</h2>
+<div class="outline-text-2" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredient</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">olive oil</td>
+<td class="text-left">1   Tbsp</td>
+<td class="text-right">0.16</td>
+</tr>
+
+<tr>
+<td class="text-left">smoked sausage</td>
+<td class="text-left">14 oz</td>
+<td class="text-right">2.79</td>
+</tr>
+
+<tr>
+<td class="text-left">medium onion</td>
+<td class="text-left">1</td>
+<td class="text-right">0.36</td>
+</tr>
+
+<tr>
+<td class="text-left">garlic</td>
+<td class="text-left">2 cloves</td>
+<td class="text-right">0.16</td>
+</tr>
+
+<tr>
+<td class="text-left">carrots</td>
+<td class="text-left">1/2 lb, (about 3)</td>
+<td class="text-right">0.50</td>
+</tr>
+
+<tr>
+<td class="text-left">celery</td>
+<td class="text-left">3 stalks</td>
+<td class="text-right">0.60</td>
+</tr>
+
+<tr>
+<td class="text-left">navy beans</td>
+<td class="text-left">4 cans</td>
+<td class="text-right">4.00</td>
+</tr>
+
+<tr>
+<td class="text-left">whole bay leaf</td>
+<td class="text-left">1 leaf</td>
+<td class="text-right">0.15</td>
+</tr>
+
+<tr>
+<td class="text-left">dried thyme</td>
+<td class="text-left">1 tsp</td>
+<td class="text-right">0.05</td>
+</tr>
+
+<tr>
+<td class="text-left">dried rosemary</td>
+<td class="text-left">1/2 tsp</td>
+<td class="text-right">0.03</td>
+</tr>
+
+<tr>
+<td class="text-left">freshly cracked pepper</td>
+<td class="text-left">to taste</td>
+<td class="text-right">0.03</td>
+</tr>
+
+<tr>
+<td class="text-left">water</td>
+<td class="text-left">8 cups</td>
+<td class="text-right">0.00</td>
+</tr>
+
+<tr>
+<td class="text-left">fresh baby spinach</td>
+<td class="text-left">3 cups</td>
+<td class="text-right">0.50</td>
+</tr>
+
+<tr>
+<td class="text-left">salt</td>
+<td class="text-left">1/2 Tbsp</td>
+<td class="text-right">0.07</td>
+</tr>
+
+<tr>
+<td class="text-left">apple cider vinegar</td>
+<td class="text-left">1 tsp</td>
+<td class="text-right">0.02</td>
+</tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<tbody>
+<tr>
+<td class="text-left"><b>Total Cost</b></td>
+<td class="text-right">9.42</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Instructions</b></h3>
+<div class="outline-text-3" id="text-">
+<ul class="org-ul">
+<li>Slice the sausage in to medallions and add them to a large soup pot along with one tablespoon of olive oil. Saute the sausage over medium heat until it is nicely browned (about five minutes). Drain off the excess fat.
+</li>
+
+<li>While the sausage is browning, dice the onion, carrot, and celery into small pieces. Mince the garlic. Add the onion, carrots, celery, and garlic to the soup pot after the sausage fat has been drained off. Saute for about five minutes more. The moisture released by the vegetables will dissolve any browned bits off of the bottom of the pot.
+</li>
+
+<li>Drain the beans and give them a good rinse with fresh water. Add the rinsed beans to the pot along with the bay leaf, thyme, rosemary, some freshly cracked pepper, and 8 cups of water. Stir everything to combine. Turn the heat up to high and allow the soup to come up to a full boil.
+</li>
+
+<li>Once it reaches a full boil, turn the heat down to medium-low and allow the soup to gently boil for two hours, with the lid in place. You want the beans to go past the point of tenderness to the point where they are falling apart. Stir the pot occasionally.
+</li>
+
+<li>After gently boiling for a couple of hours, use a large wooden spoon to smash some of the beans against the side of the pot. This will help thicken the soup. Stir in the fresh spinach until wilted. Season the soup with salt. Start with just a 1/2 teaspoon at a time and add more until it is to your desired saltiness (I used 1/2 tablespoon total). Lastly, stir in the apple cider vinegar. Serve hot.
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-" class="outline-2">
+<h2 id="sec-">Chicken and Lime Soup</h2>
+<div class="outline-text-2" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredient</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">olive oil</td>
+<td class="text-left">2 Tbsp</td>
+<td class="text-right">0.24</td>
+</tr>
+
+<tr>
+<td class="text-left">yellow onion</td>
+<td class="text-left">1 medium</td>
+<td class="text-right">0.28</td>
+</tr>
+
+<tr>
+<td class="text-left">celery</td>
+<td class="text-left">2 stalks</td>
+<td class="text-right">0.45</td>
+</tr>
+
+<tr>
+<td class="text-left">jalapeno</td>
+<td class="text-left">1 medium</td>
+<td class="text-right">0.09</td>
+</tr>
+
+<tr>
+<td class="text-left">garlic</td>
+<td class="text-left">4 cloves</td>
+<td class="text-right">0.32</td>
+</tr>
+
+<tr>
+<td class="text-left">chicken breast</td>
+<td class="text-left">3/4 lb</td>
+<td class="text-right">1.46</td>
+</tr>
+
+<tr>
+<td class="text-left">chicken broth</td>
+<td class="text-left">6 cups</td>
+<td class="text-right">0.42</td>
+</tr>
+
+<tr>
+<td class="text-left">can diced tomatoes w/chiles</td>
+<td class="text-left">1 (14.5 oz.)</td>
+<td class="text-right">0.95</td>
+</tr>
+
+<tr>
+<td class="text-left">oregano</td>
+<td class="text-left">1 tsp</td>
+<td class="text-right">0.05</td>
+</tr>
+
+<tr>
+<td class="text-left">cumin</td>
+<td class="text-left">1/2 Tbsp</td>
+<td class="text-right">0.08</td>
+</tr>
+
+<tr>
+<td class="text-left">lime</td>
+<td class="text-left">1 medium</td>
+<td class="text-right">0.33</td>
+</tr>
+
+<tr>
+<td class="text-left">cilantro</td>
+<td class="text-left">1/2 bunch</td>
+<td class="text-right">0.43</td>
+</tr>
+
+<tr>
+<td class="text-left">avocado</td>
+<td class="text-left">1 medium</td>
+<td class="text-right">1.29</td>
+</tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<tbody>
+<tr>
+<td class="text-left"><b>Total Cost</b></td>
+<td class="text-right">6.39</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Instructions</b></h3>
+<div class="outline-text-3" id="text-">
+<ul class="org-ul">
+<li>Dice the onion, celery, and jalapeno (scrape the seeds out of the jalapeno before dicing). Mince the garlic. Cook the onion, celery, jalapeno, and garlic in olive oil over medium heat for about 5 minutes or until tender.
+</li>
+
+<li>Add the chicken breast, chicken broth, canned tomatoes with chiles, oregano, and cumin to the pot. Bring the whole pot up to a boil over high heat then reduce the heat to low, place a lid on top, and let simmer for one hour.
+</li>
+
+<li>After simmering for an hour with a lid on, carefully remove the chicken breast from the pot and use two forks to shred the meat. Return the meat to the pot. Squeeze the juice of one lime into the soup. Get as much juice as possible from the lime by using a spoon to scrape the inside of the lime.
+</li>
+
+<li>Rinse the cilantro and then roughly chop the leaves. Add to the pot, give it a quick stir, and serve. Dice the avocado and add a few chunks to each bowl.
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-" class="outline-2">
+<h2 id="sec-">Spinach White Bean Enchiladas with Pepper Jack Sauce</h2>
+<div class="outline-text-2" id="text-">
+</div><div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Enchiladas</b></h3>
+<div class="outline-text-3" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredient</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">6-inch corn tortillas</td>
+<td class="text-left">12</td>
+<td class="text-right">1.10</td>
+</tr>
+
+<tr>
+<td class="text-left">pepper jack cheese</td>
+<td class="text-left">4oz</td>
+<td class="text-right">1.00</td>
+</tr>
+
+<tr>
+<td class="text-left">frozen chopped spinach</td>
+<td class="text-left">1/2 lb</td>
+<td class="text-right">0.85</td>
+</tr>
+
+<tr>
+<td class="text-left">can white beans*</td>
+<td class="text-left">15oz</td>
+<td class="text-right">1.00</td>
+</tr>
+
+<tr>
+<td class="text-left">garlic powder</td>
+<td class="text-left">1/4 tsp</td>
+<td class="text-right">0.02</td>
+</tr>
+
+<tr>
+<td class="text-left">cumin</td>
+<td class="text-left">1/2 tsp</td>
+<td class="text-right">0.05</td>
+</tr>
+
+<tr>
+<td class="text-left">salt</td>
+<td class="text-left">1/4 tsp</td>
+<td class="text-right">0.02</td>
+</tr>
+
+<tr>
+<td class="text-left">Freshly cracked pepper</td>
+<td class="text-left">to taste</td>
+<td class="text-right">0.02</td>
+</tr>
+
+<tr>
+<td class="text-left">fresh chopped cilantro for garnish (optional)</td>
+<td class="text-left">a handful</td>
+<td class="text-right">0.13</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="text-left"><b>Enchilada Cost</b></td>
+<td class="text-left">N/A</td>
+<td class="text-right">4.19</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Pepper Jack Sauce</b></h3>
+<div class="outline-text-3" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredient</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">butter</td>
+<td class="text-left">1 Tbsp</td>
+<td class="text-right">0.14</td>
+</tr>
+
+<tr>
+<td class="text-left">garlic, minced</td>
+<td class="text-left">1 clove</td>
+<td class="text-right">0.08</td>
+</tr>
+
+<tr>
+<td class="text-left">cream cheese</td>
+<td class="text-left">4oz</td>
+<td class="text-right">1.00</td>
+</tr>
+
+<tr>
+<td class="text-left">whole milk</td>
+<td class="text-left">¾ cup</td>
+<td class="text-right">0.29</td>
+</tr>
+
+<tr>
+<td class="text-left">salt</td>
+<td class="text-left">¼ tsp</td>
+<td class="text-right">0.02</td>
+</tr>
+
+<tr>
+<td class="text-left">pepper jack cheese</td>
+<td class="text-left">4oz</td>
+<td class="text-right">1.00</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="text-left"><b>Sauce Cost</b></td>
+<td class="text-left">N/A</td>
+<td class="text-right">2.53</td>
+</tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<tbody>
+<tr>
+<td class="text-left"><b>Total Cost</b></td>
+<td class="text-right">6.72</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Instructions</b></h3>
+<div class="outline-text-3" id="text-">
+<ul class="org-ul">
+<li>Toast the tortillas on each side in a dry skillet over medium-low heat until they are a slightly stiff and have browned just a bit on the edges. Stack them on a plate until ready to use. Toasting the tortillas increases the flavor and helps prevent them from cracking. Shred an 8oz. block of pepper jack cheese. Half will be used for the enchilada filling and half will be used for the sauce.
+</li>
+
+<li>Defrost the frozen spinach in a microwave or take it out of the freezer before beginning to allow it time to defrost naturally. Squeeze as much moisture out of the thawed spinach as possible. Place the spinach in a large bowl. Rinse and drain the white beans, then add them to the bowl with the spinach. Also add 4oz. of the shredded cheese, garlic powder, cumin, salt, and a little freshly cracked pepper. Stir until the mixture is evenly combined.
+</li>
+
+<li>Preheat the oven to 350ºF. Begin preparing the pepper jack sauce by adding the butter and minced garlic to a small sauce pot. Sauté the garlic in the butter for one minute over medium heat. Add the milk and cream cheese to the pot. Stir and heat until the cream cheese has fully melted into the milk and the mixture has thickened slightly. Season with salt. Begin adding the remaining shredded pepper jack, a handful at a time, and stirring it in until fully melted before adding more. Once all the cheese has been melted into the sauce, turn the heat off and allow it to cool slightly.
+</li>
+
+<li>Coat the inside of a casserole dish with non-stick spray. Begin filling the toasted tortillas with the spinach and white bean mixture and rolling them closed. Line up the filled tortillas in the casserole dish, seam sides facing down. Choose a casserole dish that fits 12 of the rolled enchiladas snugly to help keep them from unrolling.
+</li>
+
+<li>Once the tortillas are filled and in the casserole dish, pour the pepper jack sauce over top. Bake the enchiladas in the preheated oven for 35-40 minutes, or until the edges of the tortillas are brown and the pepper jack sauce is thick and browned on the edges. Sprinkle chopped cilantro over top, if desired.
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-" class="outline-2">
+<h2 id="sec-">Cheesy Rigatoni Skillet with Mushrooms and Spinach</h2>
+<div class="outline-text-2" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredient</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">olive oil</td>
+<td class="text-left">2 Tbsp</td>
+<td class="text-right">0.26</td>
+</tr>
+
+<tr>
+<td class="text-left">garlic</td>
+<td class="text-left">3 cloves, minced</td>
+<td class="text-right">0.24</td>
+</tr>
+
+<tr>
+<td class="text-left">mushrooms, sliced</td>
+<td class="text-left">8oz</td>
+<td class="text-right">1.99</td>
+</tr>
+
+<tr>
+<td class="text-left">pasta sauce (your favorite)</td>
+<td class="text-left">24oz</td>
+<td class="text-right">1.49</td>
+</tr>
+
+<tr>
+<td class="text-left">fresh spinach</td>
+<td class="text-left">1/4 lb</td>
+<td class="text-right">1.50</td>
+</tr>
+
+<tr>
+<td class="text-left">rigatoni</td>
+<td class="text-left">8oz</td>
+<td class="text-right">0.84</td>
+</tr>
+
+<tr>
+<td class="text-left">whole milk ricotta</td>
+<td class="text-left">8oz</td>
+<td class="text-right">1.25</td>
+</tr>
+
+<tr>
+<td class="text-left">grated Parmesan</td>
+<td class="text-left">2 Tbsp</td>
+<td class="text-right">0.20</td>
+</tr>
+
+<tr>
+<td class="text-left">shredded mozzarella</td>
+<td class="text-left">1 cup</td>
+<td class="text-right">0.94</td>
+</tr>
+
+<tr>
+<td class="text-left">salt and pepper</td>
+<td class="text-left">to taste</td>
+<td class="text-right">0.05</td>
+</tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<tbody>
+<tr>
+<td class="text-left"><b>Total Cost</b></td>
+<td class="text-right">8.76</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Instructions</b></h3>
+<div class="outline-text-3" id="text-">
+<ul class="org-ul">
+<li>Bring a large pot of water to a boil for the rigatoni. Once boiling, add the pasta, and continue to boil until tender. Drain in a colander and set aside until needed.
+</li>
+
+<li>After starting the pasta water, begin the sauce. Add the olive oil and minced garlic to a large skillet and sauté for about one minute over medium heat, or just until the garlic becomes fragrant. Add the sliced mushrooms, a pinch of salt and pepper, and continue to sauté until the mushrooms have released all their moisture and begin to brown on the edges (about 5-7 minutes).
+</li>
+
+<li>Add the sauce to the skillet. Stir the sauce as it heats, dissolving any browned bits off the bottom of the skillet. Once the sauce is heated through, add the spinach, and continue to stir and cook until the spinach has wilted (about 5 minutes more).
+</li>
+
+<li>Once the rigatoni has been cooked and drained, stir it into the skillet with the sauce and vegetables and allow everything to heat through.
+</li>
+
+<li>In a small bowl, stir together the ricotta, Parmesan, and a pinch of salt and pepper. Add the ricotta mixture to the skillet, in dollops over the surface. Gently fold the ricotta into the pasta, leaving it only about half mixed, so there are still pockets of ricotta within the sauce and pasta.
+</li>
+
+<li>Sprinkle the shredded mozzarella over the pasta, place a lid on the skillet, and let it heat over medium-low until the cheese is melted. If you want the cheese to brown a bit, place it under your oven&rsquo;s broiler (without a lid) and watch closely until it develops a few browned spots. Serve hot.
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-" class="outline-2">
+<h2 id="sec-">Monterrey Chicken Skillet</h2>
+<div class="outline-text-2" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredients</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">shredded pre-cooked chicken</td>
+<td class="text-left">2 cups (1/2 rotisserie chicken)</td>
+<td class="text-right">3.50</td>
+</tr>
+
+<tr>
+<td class="text-left">can Rotel (diced tomatoes with green chiles)</td>
+<td class="text-left">1 (10 oz)</td>
+<td class="text-right">0.99</td>
+</tr>
+
+<tr>
+<td class="text-left">fusili pasta</td>
+<td class="text-left">1/2 lb</td>
+<td class="text-right">0.63</td>
+</tr>
+
+<tr>
+<td class="text-left">chicken broth</td>
+<td class="text-left">2 cups</td>
+<td class="text-right">0.30</td>
+</tr>
+
+<tr>
+<td class="text-left">BBQ sauce</td>
+<td class="text-left">1/3 cup</td>
+<td class="text-right">0.36</td>
+</tr>
+
+<tr>
+<td class="text-left">shredded Monterrey Jack cheese</td>
+<td class="text-left">1 cup</td>
+<td class="text-right">1.24</td>
+</tr>
+
+<tr>
+<td class="text-left">bacon</td>
+<td class="text-left">3 slices</td>
+<td class="text-right">0.92</td>
+</tr>
+
+<tr>
+<td class="text-left">green onions</td>
+<td class="text-left">2, sliced</td>
+<td class="text-right">0.17</td>
+</tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<tbody>
+<tr>
+<td class="text-left"><b>Total Cost</b></td>
+<td class="text-right">8.11</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Instructions</b></h3>
+<div class="outline-text-3" id="text-">
+<ul class="org-ul">
+<li>Place the chicken, pasta, and Rotel tomatoes (undrained) in a large skillet. Add two cups of chicken broth and stir to combine. Cover the skillet with a tight fitting lid, turn the heat on to high, and let it come to a boil. Once it reaches a boil, reduce the heat to low and let it simmer for 15 minutes, giving it a quick stir every 5 minutes or so.
+</li>
+
+<li>Meanwhile, cook the bacon in a skillet until brown and crispy. Drain the cooked bacon on a paper towel, then crumble into pieces.
+</li>
+
+<li>After simmering for 15 minutes, the pasta should be tender and most of the liquid absorbed. If the pasta is still firm, let the skillet simmer for 5 more minutes. If the pasta is tender, but there is still a lot of liquid in the skillet, let it simmer without a lid for 5 more minutes.
+</li>
+
+<li>Once the pasta is cooked and most of the liquid is absorbed, drizzle the BBQ sauce over top. Sprinkle the shredded cheese over the BBQ sauce and cover the skillet with the lid. Leave the heat set on low and let the skillet sit for five minutes to melt the cheese. Once the cheese is melted, top with the crumbled bacon and sliced green onions, then serve.
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-" class="outline-2">
+<h2 id="sec-">Bacon Bean and Potato Soup</h2>
+<div class="outline-text-2" id="text-">
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Ingredients</th>
+<th scope="col" class="text-left">Amount</th>
+<th scope="col" class="text-right">Cost($)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">navy  beans</td>
+<td class="text-left">4 cans</td>
+<td class="text-right">1.79</td>
+</tr>
+
+<tr>
+<td class="text-left">bacon</td>
+<td class="text-left">6oz.</td>
+<td class="text-right">2.00</td>
+</tr>
+
+<tr>
+<td class="text-left">garlic</td>
+<td class="text-left">2 cloves</td>
+<td class="text-right">0.16</td>
+</tr>
+
+<tr>
+<td class="text-left">yellow onion</td>
+<td class="text-left">1</td>
+<td class="text-right">0.37</td>
+</tr>
+
+<tr>
+<td class="text-left">carrots</td>
+<td class="text-left">3</td>
+<td class="text-right">0.32</td>
+</tr>
+
+<tr>
+<td class="text-left">celery</td>
+<td class="text-left">3 stalks</td>
+<td class="text-right">0.53</td>
+</tr>
+
+<tr>
+<td class="text-left">potatoes</td>
+<td class="text-left">1.5 - 2 lbs</td>
+<td class="text-right">1.44</td>
+</tr>
+
+<tr>
+<td class="text-left">chicken broth</td>
+<td class="text-left">6 cups</td>
+<td class="text-right">0.76</td>
+</tr>
+
+<tr>
+<td class="text-left">tomato sauce</td>
+<td class="text-left">8oz</td>
+<td class="text-right">0.34</td>
+</tr>
+
+<tr>
+<td class="text-left">salt and pepper</td>
+<td class="text-left">to taste</td>
+<td class="text-right">0.05</td>
+</tr>
+</tbody>
+</table>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="right">
+</colgroup>
+<tbody>
+<tr>
+<td class="text-left"><b>Total Cost</b></td>
+<td class="text-right">7.76</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-sec-" class="outline-3">
+<h3 id="sec-"><b>Instructions</b></h3>
+<div class="outline-text-3" id="text-">
+<ul class="org-ul">
+<li>Cut the bacon into one-inch pieces. Cook the bacon in a large pot over medium heat until brown and crispy. Remove the bacon to a paper towel lined plate and pour off most of the grease, leaving a tablespoon or two in the pot.
+</li>
+
+<li>While the bacon is cooking, dice the onion and mince the garlic. Peel and slice the carrots, and slice the celery. Sauté the onion, garlic, carrots, and celery in the leftover bacon grease over medium heat until the onions are soft and transparent (about five minutes). Use the moisture from the vegetables to help dissolve the browned bits of bacon from the bottom of the pot.
+</li>
+
+<li>While the vegetables are sautéing, peel the potatoes then cut them into ½-inch cubes. Drain the beans and rinse them briefly.
+</li>
+
+<li>Add the cubed potatoes, rinsed beans, and chicken broth to the pot. Cover the pot and bring it up to a boil. Reduce the heat slightly and let the pot boil gently for one hour, or until the beans and potatoes are very soft.
+</li>
+
+<li>Use an immersion blender to purée about half of the soup, leaving some beans and vegetables whole. If you don&rsquo;t have an immersion blender, remove half of the soup from the pot, let it cool slightly, then use a blender or food processor to carefully purée the warm soup. Return the puréed soup to the pot and stir to combine with the rest.
+</li>
+
+<li>Add the tomato sauce and reserved bacon to the soup. Stir and heat until warm. Taste the soup and add salt and pepper if needed. Serve hot.
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="col-md-3"><nav id="table-of-contents">
+<div id="text-table-of-contents" class="bs-docs-sidebar">
+<ul class="nav">
+<li><a href="#sec-">Spicy Peanut Noodles</a>
+<ul class="nav">
+<li><a href="#sec-"><b>Instructions</b></a></li>
+</ul>
+</li>
+<li><a href="#sec-">Navy Bean Soup With Sausage &amp; Spinach</a>
+<ul class="nav">
+<li><a href="#sec-"><b>Instructions</b></a></li>
+</ul>
+</li>
+<li><a href="#sec-">Chicken and Lime Soup</a>
+<ul class="nav">
+<li><a href="#sec-"><b>Instructions</b></a></li>
+</ul>
+</li>
+<li><a href="#sec-">Spinach White Bean Enchiladas with Pepper Jack Sauce</a>
+<ul class="nav">
+<li><a href="#sec-"><b>Enchiladas</b></a></li>
+<li><a href="#sec-"><b>Pepper Jack Sauce</b></a></li>
+<li><a href="#sec-"><b>Instructions</b></a></li>
+</ul>
+</li>
+<li><a href="#sec-">Cheesy Rigatoni Skillet with Mushrooms and Spinach</a>
+<ul class="nav">
+<li><a href="#sec-"><b>Instructions</b></a></li>
+</ul>
+</li>
+<li><a href="#sec-">Monterrey Chicken Skillet</a>
+<ul class="nav">
+<li><a href="#sec-"><b>Instructions</b></a></li>
+</ul>
+</li>
+<li><a href="#sec-">Bacon Bean and Potato Soup</a>
+<ul class="nav">
+<li><a href="#sec-"><b>Instructions</b></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+</div></div></div>
+<footer id="postamble" class="">
+<div><p class="author">Author: Jacob Carroll</p>
+<p class="date">Created: 2017-05-08 Mon 00:59</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.0.50 (<a href="http://orgmode.org">Org-mode</a> 9.0.6)</p>
+</div>
+</footer>
+</body>
+</html>

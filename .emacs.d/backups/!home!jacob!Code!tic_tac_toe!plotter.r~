@@ -1,0 +1,69 @@
+library(MASS)
+
+args <- commandArgs(TRUE) #get arguments from command line
+
+
+if(length(args) < 3){
+    stop("Three arguments must be passed to r_plot.r", call.=FALSE)
+}
+
+bins <- c(10,50,100,500, 1000)
+cols <- c("blue", "red","green", "blueviolet", "firebrick")
+bindex <- 1
+outname <- paste(args[2],".ps", sep="")
+
+neuron_threshold <- as.double(args[3])
+
+postscript(outname)
+
+
+print(neuron_threshold)
+
+dat <- read.table(args[1], header = TRUE)
+
+dat$DATA <- dat$DATA/neuron_threshold
+
+for( bin in bins){
+
+   
+    bins <- seq(min(dat),max(dat), length.out = bin)
+
+    data_hist <- hist(dat$DATA , breaks = bins, plot = FALSE)
+
+    data_hist$counts <- data_hist$counts/sum(data_hist$counts)
+
+    data_hist$counts[which(data_hist$counts == 0)] = NA #Stops problems rom happening on a log/log-log scale.
+
+    old_val <- 1.0
+
+    index <- 0
+
+    for( i in c(1:length(data_hist$counts))){
+        if(is.na(data_hist$counts[i])){
+            index <- index + 1
+            next
+        }
+        
+        if(data_hist$counts[i] < old_val){
+            index <- index + 1
+            print(data_hist$counts[i])
+            old_val <- data_hist$counts[i]
+        }
+        else{
+            break
+        }
+    }
+
+    print(index)
+
+    fit <- lm(log10(data_hist$counts[0:index]) ~ log10(data_hist$breaks[-1][0:index]))
+
+    leg <-paste("10^(", as.character(signif(fit$coefficients[[1]],3)),") * x^(", as.character(signif(fit$coefficients[[2]],3)), ")")
+    
+    plot(data_hist$breaks[-1], data_hist$counts, log = 'xy', type = 'h')
+    curve(10^(fit$coefficients[[1]])*(x^fit$coefficients[[2]]), from=1, to=50, add=TRUE, col=cols[bindex])
+    legend("topright",leg)
+    bindex <- bindex + 1
+    
+    
+}

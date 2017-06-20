@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}minted\PYGZhy{}options}
+					 \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}frame\PYGZdq{}} \PYG{l+s}{\PYGZdq{}lines\PYGZdq{}}\PYG{p}{)}
+						 \PYG{p}{(}\PYG{l+s}{\PYGZdq{}fontsize\PYGZdq{}} \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}scriptsize\PYGZdq{}}\PYG{p}{)}
+						 \PYG{p}{(}\PYG{l+s}{\PYGZdq{}linenos\PYGZdq{}} \PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{)}
+						 \PYG{p}{(}\PYG{l+s}{\PYGZdq{}bgcolor\PYGZdq{}} \PYG{l+s}{\PYGZdq{}LightGray\PYGZdq{}}\PYG{p}{)))}
+\end{Verbatim}

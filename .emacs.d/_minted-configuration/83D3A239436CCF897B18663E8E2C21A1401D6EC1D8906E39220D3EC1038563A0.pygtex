@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{c\PYGZhy{}default\PYGZhy{}style} \PYG{l+s}{\PYGZdq{}linux\PYGZdq{}}
+			\PYG{n+nv}{c\PYGZhy{}basic\PYGZhy{}offset} \PYG{l+m+mi}{4}\PYG{p}{)}
+\end{Verbatim}

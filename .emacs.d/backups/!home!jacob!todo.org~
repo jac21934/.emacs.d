@@ -1,0 +1,20 @@
+#+TITLE: Jacob's To Do List
+#+AUTHOR: Jacob Carroll
+#+STARTUP: indent#+STARTUP: entitiespretty
+#+OPTIONS: toc:t
+#+STARTUP: entitiespretty
+#+TODO:  TODO DONE(!) 
+
+
+* TODO Clean the house
+- State "DONE"       from "DONE"       [2017-05-07 Sun 13:31]
+** TODO Clean Room                                                   :house:
+** TODO Clean Kitchen                                                :house:
+** TODO Clean Bathroom                                               :house:
+
+* TODO Get new windshield wipers                                      :house:
+* TODO Start Packing up
+* TODO Email Bialek about data set                                 :Research:
+* TODO Find biological motivation for noise                        :Research:
+* TODO Learn about receptor agonists
+

@@ -1,0 +1,60 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/media/jacob/USB DISK/Resume/" . "Tex_Files/")
+ ("/media/jacob/USB DISK/" . "Resume/")
+ ("/media/jacob/" . "USB DISK/")
+ ("/media/" . "jacob/")
+ ("/" . "media/")
+ ("/home/jacob/Research/neural_network/" . "src/")
+ ("/home/jacob/Research/" . "neural_network/")
+ ("/home/jacob/" . "Research/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/media/jacob/USB DISK/Resume/Tex_Files/"
+ "/media/jacob/USB DISK/Resume/"
+ "/home/jacob/Research/neural_network/src/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "JacobCarroll_Resume.tex"
+ "JacobCarroll_CV.tex"
+ "JacobCarroll_CVbackup.tex"
+ "JacobCarroll_CV.pdf"
+ "network_avalanche.cpp"
+ "main.cpp"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/media/jacob/USB DISK/Resume/Tex_Files/" (22777 7840 0 0) "JacobCarroll_Resume.synctex.gz" "JacobCarroll_Resume.aux" "JacobCarroll_CVbackup.tex" "JacobCarroll_New_Resume.tex~" "JacobCarroll_CV.tex~" "JacobCarroll_CV.log" "JacobCarroll_CV.aux" "JacobCarroll_CV.pdf" "JacobCarroll_Resume.tex" "JacobCarroll_Resume.log" "JacobCarroll_CV.tex" "JacobCarroll_Resume.tex~" "../" "./")
+
+ ("/media/jacob/USB DISK/Resume/Tex_Files/_whizzy_JacobCarroll_CV_d/output/" (22777 6762 0 0) "slice" "mkslice" "initialization" "dvicopy" "view" "latex" "nil" "format" "mkfile" "command" "../" "./")
+
+ ("/media/jacob/USB DISK/Resume/Tex_Files/_whizzy_JacobCarroll_CV_d/" (22777 6760 0 0) "tmp/" "input/" "output/" "../" "./")
+
+ ("/home/jacob/Research/neural_network/src/" (22777 4975 885519 800000) "network_input.cpp~" "main.cpp" "network_input.o" "network_init.cpp" "uselib.cpp" "network_init.cpp~" "network_output.cpp~" "#network_avalanche.cpp#" "random_lib.h" "network_avalanche.cpp" "network_avalanche.o" "net_interface.cpp~" "network_input.cpp" "./" "network.cpp~" "test.cpp~" "main.cpp~" "network.h" "../" "network.h~" "random_lib (copy).h~" "network.o" "uselib.cpp~" "random_lib.cpp" "random_lib.cpp~" "onefile.txt~" "condor_files/" "uselib.h" "net_interface.h~" "network_output.o" "uselib.h~" "network_voter.cpp~" "random_lib.h~" "main.o" "network_output.cpp" "network.cpp" "network_init.o" "uselib.o" "random_lib.o" "network_avalanche.cpp~")
+
+ ("/media/jacob/USB DISK/Resume/" (22767 59810 0 0) "JacobCarroll_CV.pdf" "JacobCarroll_Resume.pdf" "Tex_Files/" "Old_Documents/" "Cover_Letters/" "../" "./")
+
+ ("/media/jacob/USB DISK/" (0 0 0 0) "filament_port.stl" "parking_receipt.jpg" "The Carroll Cookbook.doc" "System Volume Information/" ".files/" "make_test/" ".emacs.d/" ".fseventsd/" ".Spotlight-V100/" "Background_Check/" "Makefile" "Center_travel_funding.pdf" "NN_Research/" "Books/" "Papers/" "Infographs/" ".disk/" "init.el" "Resume/" "Game/" ".Trash-1000/" "../" "./")
+
+ ("/media/jacob/" (22777 5084 501839 925000) "./" "../" "USB DISK/")
+
+ ("/media/" (22755 52391 284015 256000) "jacob/" "./" "../")
+
+ ("/home/" (22754 54412 189090 679000) "jacob/" "./" "../")
+
+ ("/home/jacob/" (22777 4861 921200 557000) "Desktop/" ".gnupg/" ".mozilla/" ".sudo_as_admin_successful" "life.tex" ".nano/" ".wine/" ".wget-hsts" ".xscreensaver" ".xsession-errors.old" ".icons/" ".Xauthority" ".thumbnails/" "Music/" "Pictures/" ".gconf/" ".local/" "life.org~" "life.org" "test.org~" "Documents/" ".cache/" ".Xdefaults" ".config/" "test.org" "./" ".Wolfram/" ".dbus/" ".xsession-errors" "Public/" ".ICEauthority" ".gimp-2.8/" "../" ".gtkrc-2.0" ".kde/" ".adobe/" ".bashrc" ".pki/" ".dmrc" "Downloads/" "Videos/" "Templates/" "Research/" ".Mathematica/" ".bash_history" ".bash_logout" "life.pdf" ".profile" ".texmf-var/" ".thunderbird/" ".themes/" ".emacs.d/" ".gvfs/" ".face")
+
+ ("/home/jacob/Research/neural_network/" (22775 49406 506277 546000) "net" "src/" "input.net" "ave_strenght.dat" "strength.dat" "data (copy 1)/" "makefile~" "state.dat" "./" "input.net~" "#notes.txt#" "notes.txt" "data/" "documentation/" "../" "figures/" "ave_strength.dat" "weight_noise.sh~" "dependency_graph/" "weight_noise.sh" "run.sh" "makefile" "num.dat" "histogram/")
+
+ ("/home/jacob/Research/" (22775 49423 710314 920000) "posters/" "./" "neural_network/" "paper_notes.tex" "parallel_test/" "../" "paper_notes.pdf" "paper_notes.org")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

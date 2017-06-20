@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}c++\PYGZhy{}mode\PYGZhy{}hook}
+	 \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()}
+			\PYG{p}{(}\PYG{n+nb}{set} \PYG{p}{(}\PYG{n+nv}{make\PYGZhy{}local\PYGZhy{}variable} \PYG{l+s+ss}{\PYGZsq{}compile\PYGZhy{}command}\PYG{p}{)}
+					 \PYG{p}{(}\PYG{k}{let} \PYG{p}{((}\PYG{n+nv}{file} \PYG{p}{(}\PYG{n+nv}{file\PYGZhy{}name\PYGZhy{}nondirectory} \PYG{n+nv}{buffer\PYGZhy{}file\PYGZhy{}name}\PYG{p}{)))}
+					 \PYG{p}{(}\PYG{n+nb}{format} \PYG{l+s}{\PYGZdq{}\PYGZpc{}s \PYGZhy{}o \PYGZpc{}s \PYGZpc{}s\PYGZdq{}}
+									 \PYG{p}{(}\PYG{n+nb}{or} \PYG{p}{(}\PYG{n+nv}{getenv} \PYG{l+s}{\PYGZdq{}CC\PYGZdq{}}\PYG{p}{)} \PYG{l+s}{\PYGZdq{}g++\PYGZdq{}}\PYG{p}{)}
+									 \PYG{p}{(}\PYG{n+nv}{file\PYGZhy{}name\PYGZhy{}sans\PYGZhy{}extension} \PYG{n+nv}{file}\PYG{p}{)}
+									 \PYG{n+nv}{file}\PYG{p}{)))))}
+\end{Verbatim}

@@ -1,0 +1,262 @@
+#include "network.h"
+
+using namespace std;
+
+void network::random_neuron_increase(){
+		int index = random.random_int() % net_size;
+
+    double gauss = random.random_gauss(neuron_noise_mean, neuron_noise_width);
+//    double real = random.random_real() * noise_strength;
+    
+    neuron[index] += gauss;
+    //cout << gauss << " " << real << endl;
+}
+
+void network::random_weight_increase(){
+
+		double gauss = random.random_gauss(weight_noise_mean,weight_noise_width);
+
+    int i = random.random_int() % net_size;
+    int j = random.random_int() % net_size;
+
+    weight[i][j] += gauss;
+
+
+
+}
+
+void network::avalanche_neuron_noise(){
+
+		if(isUpState == 0){
+
+				random_neuron_increase();
+		}
+
+		else{
+
+				int index = random.random_int() % net_size;
+				double real = random.random_interval(0,double(av_max)/double(old_depol_strength));
+
+				neuron[index] += real;
+		}
+		
+				
+}
+
+void network::update_inDegree(){
+
+		for(int j = 0; j < net_size; j++){
+				int inSize = 0;
+				for(int i = 0; i < net_size; i++){
+
+						if( abs(weight[i][j]) > MIN_RES){
+								inSize++;
+						}
+
+						inDegree[j] = inSize;
+
+				}
+    }
+}
+
+void network::update_outDegree(){
+
+		for(int i = 0; i < net_size; i++){
+				int outSize = 0;
+				for(int j = 0; j < net_size; j++){
+
+						if( abs(weight[i][j]) > MIN_RES){ 
+								outSize++;
+						}
+				}
+	
+				outDegree[i] = outSize;
+
+    }
+
+}
+
+void network::update_av(){
+/* Steps:
+	 1) Update neurons, if neuron fires add number to avalance_sum, and set fired_last_turn to the number that fired this turn
+	 2) If fired_last_turn > 0, go to step 1) else output avalanche_sum
+	 3) Update weights
+	 4) Check for up/down state, set apropriately
+	 5) if t < t_max, goto 1)
+	 6) end
+*/
+
+		depol_strength = 0;
+		
+   
+    int avalanche_sum = 0;     	  // number of time steps that neurons have fired for
+    int av_turn = 0;		      // not neccessary any more?
+    double delta_weight_buff = 0; // 
+
+		
+		double v_buff = 0;
+    double v_buff_min = 0.01;
+    int num_bond = 0;
+
+		static int zero_counter = 0;
+//    static bool isUpState = true;
+
+    bool* refr_check = new bool[net_size];      // 
+    double* old_neuron = new double[net_size];	// arrays are used instead of vectors for speed
+    double* weight_sum = new double[net_size];	// all  arrays need to be deleted at end of program
+    double* delta_v = new double[net_size];	// 
+    double* first_neuron = new double[net_size];	// arrays are used instead of vectors for speed
+
+    for(int i = 0; i < net_size; i++){ //initializing all temporary arrays to 0
+				refr_check[i] = 0;
+				weight_sum[i] = 0.0;
+				delta_v[i] = 0.0;
+
+				first_neuron[i] = neuron[i];
+				old_neuron[i] = 0;
+		}
+    for(int i = 0; i < net_size; i++){             //
+				weight_sum[i] = 0;                         //
+				for(int j = 0; j < net_size; j++){         //
+						weight_sum[i] += abs(weight[i][j]);    // Normalizing rows 
+				}                                          //
+				for(int j = 0; j < net_size; j++){	   // 
+						if(weight_sum[i] > MIN_RES){           //
+								weight[i][j]= weight[i][j] / weight_sum[i];  //
+						}
+				}
+		}
+
+	
+    int time = 0;
+    do{
+				time++;
+				fired_last_turn = 0;
+				av_turn++;
+				update_inDegree();  // for scaling the outputs of the neurons
+				update_outDegree(); // 
+				for(int i = 0; i < net_size; i++){
+
+						old_neuron[i] = neuron[i]; // storing the neuron vector so changes to neuron[] don't effect the later updates
+	 
+				}
+
+				for(int j = 0; j < net_size; j++){
+						if(refr_check[j] == false
+							 && inDegree[j] != 0	     // the inDegree of the neuron recieving the signal can't be zero
+								){
+								for(int i = 0; i < net_size; i++){
+										if(weight_sum[i] > MIN_RES       // weight has to be above zero 
+											 && refr_check[i] == false     // cant be in a refractory period
+											 && abs(neuron[i]) > n_max){   // the neuron firing must be a
+												
+												for(int i = 0; i < net_size; i++){ 
+														if(neuron[i] < 0){
+																neuron[i] = 0;
+														}
+														
+														delta_v[i] += abs(neuron[i] - first_neuron[i]);
+
+														if(refr_check[i] = true){
+																refr_check[i] = false;
+														}
+														if(old_neuron[i] > n_max)
+														{
+																network_fired = true;
+																neuron[i] = 0;
+																fired_last_turn++;
+																num_fired++;
+																refr_check[i] = true;
+																depol_strength+= old_neuron[i];
+
+		
+														}
+														if(neuron[i] > n_max){
+																fired_last_turn++; // adds one for each neuron that fired or will fire next turn.
+																// this is more of a notekeeping thing. Avalanches should go until no neuron fires. 
+														}
+												}
+										}
+								}
+						}
+				}
+				
+		}while(fired_last_turn > 0); // run until no neurons fire
+		
+		num_bond = bond_number(); 	// finds number of bonds in the network
+		
+		for(int i = 0; i < net_size; i++){
+				
+				v_buff += delta_v[i];
+				
+				for(int j = 0; j < net_size; j++){
+						
+						delta_weight_buff += delta_v[j]/n_max;
+						
+						weight[i][j] += delta_v[j]/n_max;
+						
+				}
+		}
+		
+		if( num_bond != 0){
+				for(int j = 0; j < net_size; j++){
+						if( delta_v[j] < MIN_RES ){
+								for(int i = 0; i < net_size; i++){
+										weight[i][j] -= delta_weight_buff/double(num_bond);
+								}
+						}
+				}
+		}
+    
+		if(depol_strength > MIN_RES){
+				if(zero_counter > 0){
+						cout << 0 << " " << isUpState << " " << zero_counter << endl;
+						zero_counter = 0;
+				}
+				cout << depol_strength << " " << isUpState << " " << 0 << endl;
+		}
+
+		else{
+				zero_counter++;
+		}
+		
+		
+		if( depol_strength > av_max){
+				for(int i = 0; i > net_size; i++){
+						neuron[i] = neuron[i] - av_h * delta_v[i];
+						
+						if(neuron[i] < 0){
+								neuron[i] = 0;
+						}
+														
+				}
+				isUpState = false;
+		}
+		else if( depol_strength <= MIN_RES ){
+				//remains in up or down state
+		}
+		else{
+				for(int i = 0; i > net_size; i++){
+						neuron[i] = n_max* (1.0 - v_buff/av_max);
+
+				}
+				isUpState = true;
+		}
+
+
+		if(depol_strength > MIN_RES){
+				old_depol_strength = depol_strength;
+		}
+
+
+		// cleaning up
+		delete[] refr_check;
+		delete[] old_neuron;
+		delete[] weight_sum;
+		delete[] delta_v;
+		delete[] first_neuron;
+		
+}
+
+
+

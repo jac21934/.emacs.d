@@ -1,0 +1,1218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Emacs Configuration File</title>
+<!-- 2017-05-26 Fri 12:37 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Org-mode">
+<meta name="author" content="Jacob Carroll">
+
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+/* org mode styles on top of twbs */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-size: 18px;
+    margin-bottom: 105px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 101px;
+    background-color: #f5f5f5;
+}
+
+footer > div {
+    padding: 10px;
+}
+
+footer p {
+    margin: 0 0 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#table-of-contents {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+blockquote p {
+    font-size: 18px;
+}
+
+pre {
+    font-size: 16px;
+}
+
+.footpara {
+    display: inline-block;
+}
+
+figcaption {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+  padding-bottom: 15px;
+}
+
+/* from twbs docs */
+
+.bs-docs-sidebar.affix {
+    position: static;
+}
+@media (min-width: 768px) {
+    .bs-docs-sidebar {
+        padding-left: 20px;
+    }
+}
+
+/* All levels of nav */
+.bs-docs-sidebar .nav > li > a {
+    display: block;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus {
+    padding-left: 19px;
+    color: #A1283B;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 1px solid #A1283B;
+}
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+    padding-left: 18px;
+    font-weight: bold;
+    color: #A1283B;
+    background-color: transparent;
+    border-left: 2px solid #A1283B;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-docs-sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav > li > a:focus {
+    padding-left: 29px;
+}
+.bs-docs-sidebar .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav > .active:focus > a {
+    padding-left: 28px;
+    font-weight: 500;
+}
+
+/* Nav: third level (shown on .active) */
+.bs-docs-sidebar .nav .nav .nav {
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav .nav > li > a:focus {
+    padding-left: 39px;
+}
+.bs-docs-sidebar .nav .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav .nav > .active:focus > a {
+    padding-left: 38px;
+    font-weight: 500;
+}
+
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+    .bs-docs-sidebar .nav > .active > ul {
+        display: block;
+    }
+    /* Widen the fixed sidebar */
+    .bs-docs-sidebar.affix,
+    .bs-docs-sidebar.affix-bottom {
+        width: 213px;
+    }
+    .bs-docs-sidebar.affix {
+        position: fixed; /* Undo the static from mobile first approach */
+        top: 20px;
+    }
+    .bs-docs-sidebar.affix-bottom {
+        position: absolute; /* Undo the static from mobile first approach */
+    }
+    .bs-docs-sidebar.affix .bs-docs-sidenav,.bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+}
+@media (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .bs-docs-sidebar.affix-bottom,
+    .bs-docs-sidebar.affix {
+        width: 263px;
+    }
+}
+</style>
+<script type="text/javascript">
+$(function() {
+    'use strict';
+
+    $('.bs-docs-sidebar li').first().addClass('active');
+
+    $(document.body).scrollspy({target: '.bs-docs-sidebar'});
+
+    $('.bs-docs-sidebar').affix();
+});
+</script>
+</head>
+<body>
+<div id="content" class="container">
+<div class="row"><div class="col-md-9"><h1 class="title">Emacs Configuration File</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Set Personal Information</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Setting some personal information for ease of compilation into LaTeX later on.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> user-full-name <span style="color: #66cccc;">"Jacob Carroll"</span>
+      user-mail-address <span style="color: #66cccc;">"jac21934@vt.edu"</span>
+      calendar-latitude 37.2
+      calendar-longitude -80.4
+      calendar-location-name <span style="color: #66cccc;">"Blacksburg, VA"</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Environment Settings</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Tell emacs to use Unicode-8.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(set-language-environment <span style="color: #66cccc;">"UTF-8"</span>)
+</pre>
+</div>
+
+<p>
+Set startup window size.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(width . 100))
+</pre>
+</div>
+
+<p>
+I don&rsquo;t like the startup splash, or the messages buffer.
+</p>
+
+
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> inhibit-startup-message t)
+(<span style="color: #99cc99;">setq-default</span> message-log-max nil)
+(kill-buffer <span style="color: #66cccc;">"*Messages*"</span>)
+</pre>
+</div>
+
+<p>
+Get&rsquo;s rid of yes or no questions, replaces them with y or n.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(fset 'yes-or-no-p 'y-or-n-p)
+</pre>
+</div>
+
+<p>
+Remove the tool bar.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(tool-bar-mode -1)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Scrolling settings</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Set scrolling speed to not accelerate.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> mouse-wheel-progressive-speed nil)
+</pre>
+</div>
+
+<p>
+When point goes outside the window, Emacs usually recenters the buffer point. I’m not crazy about that. This changes scrolling behavior to only scroll as far as point goes.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> scroll-conservatively 100)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Scratch Message</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Sets the scratch message to be a helpful reminder for key bindings
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> initial-scratch-message 
+<span style="color: #66cccc;">";; [C-x C-f] Open [C-x C-s] Save [C-x s] Save as [C-x b] S/w buf [C-x k] Kill buf</span>
+<span style="color: #66cccc;">;; [C-x 1] Del others [C-x 0] Del current [C-x 2/3] Split-H/V [C-x o] S/w window</span>
+<span style="color: #66cccc;">;; [C-a/e] Begin/End of line [M-f/b] Next/Back word [C/M-v] Next/Back page</span>
+<span style="color: #66cccc;">;; [C/M-d] Del char/word [C-s/r] search/r-search [M-%] replace"</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Repositories and File Loading</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Repositories</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Setting up the package archives
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> package-archives '((<span style="color: #66cccc;">"gnu"</span> . <span style="color: #66cccc;">"https://elpa.gnu.org/packages/"</span>)
+(<span style="color: #66cccc;">"marmalade"</span> . <span style="color: #66cccc;">"https://marmalade-repo.org/packages/"</span>) 
+(<span style="color: #66cccc;">"melpa"</span> . <span style="color: #66cccc;">"https://melpa.org/packages/"</span>) 
+(<span style="color: #66cccc;">"org"</span> . <span style="color: #66cccc;">"http://orgmode.org/elpa/"</span>) ) )
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">Loading Files</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+This recursively loads all paths in <i>elpa</i>. It was necessary for some reason.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">let</span> ((default-directory (expand-file-name <span style="color: #66cccc;">"~/.emacs.d/elpa/"</span>))) 
+ (<span style="color: #99cc99;">setq</span> load-path  
+ (append 
+ (<span style="color: #99cc99;">let</span> ((load-path (copy-sequence load-path)))
+   (append (copy-sequence (normal-top-level-add-to-load-path '(<span style="color: #66cccc;">"."</span>)))
+   (normal-top-level-add-subdirs-to-load-path)))
+         load-path)))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Directory Manager Settings</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Dired</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Load up the assorted <code>dired</code> extensions.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">dired-x</span>)
+(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">dired+</span>)
+(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">dired-open</span>)
+</pre>
+</div>
+
+<p>
+Open media with the appropriate programs.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> dired-open-extensions
+      '((<span style="color: #66cccc;">"mkv"</span> . <span style="color: #66cccc;">"vlc"</span>)
+        (<span style="color: #66cccc;">"mp4"</span> . <span style="color: #66cccc;">"vlc"</span>)
+        (<span style="color: #66cccc;">"avi"</span> . <span style="color: #66cccc;">"vlc"</span>)))
+</pre>
+</div>
+
+<p>
+These are the switches that get passed to <i>ls</i> when <code>dired</code> gets a list of files. We’re using:
+</p>
+
+<table class="table table-striped table-bordered table-hover table-condensed">
+
+
+<colgroup>
+<col  class="left">
+
+<col  class="left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="text-left">Flag</th>
+<th scope="col" class="text-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="text-left">l</td>
+<td class="text-left">Use the long listing format.</td>
+</tr>
+
+<tr>
+<td class="text-left">h</td>
+<td class="text-left">Use human-readable sizes.</td>
+</tr>
+
+<tr>
+<td class="text-left">v</td>
+<td class="text-left">Sort numbers naturally.</td>
+</tr>
+
+<tr>
+<td class="text-left">A</td>
+<td class="text-left">Almost all. Doesn’t include ”.” or ”..”.</td>
+</tr>
+</tbody>
+</table>
+
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq-default</span> dired-listing-switches <span style="color: #66cccc;">"-lhvA"</span>)
+</pre>
+</div>
+
+
+<p>
+Kill buffers of files/directories that are deleted in <code>dired</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> dired-clean-up-buffers-too t)
+</pre>
+</div>
+<p>
+Always copy directories recursively instead of asking every time.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> dired-recursive-copies 'always)
+</pre>
+</div>
+
+<p>
+Ask before recursively deleting a directory, though.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> dired-recursive-deletes 'top)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">NeoTree</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Setting up <code>NeoTree</code> and setting [f7] to toggle it. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">neotree</span>)
+(global-set-key [f7] 'neotree-toggle)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">PDF-Tools</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Turns <code>pdf-tools</code> on after startup
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'after-init-hook 'pdf-tools-install)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Programming Settings</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1">General Settings</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Make emacs delete on selection
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(delete-selection-mode t)
+</pre>
+</div>
+
+<p>
+Require line numbers in all programming models:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'prog-mode-hook 'linum-mode)
+</pre>
+</div>
+
+<p>
+Smaller tab-width:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq-default</span> tab-width 2)
+</pre>
+</div>
+
+<p>
+Show matching parenthesis:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'after-init-hook 'show-paren-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2">C/C++ Settings</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Set the default style to linux for c/c++ programming 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> c-default-style <span style="color: #66cccc;">"linux"</span>
+      c-basic-offset 4)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">LaTeX</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Turn on <code>linum-mode</code> for Latex.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'latex-mode-hook 'linum-mode)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8">Org-Mode</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1">Initialization and Hooks</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+Require <code>Org-mode</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">org</span>)
+</pre>
+</div>
+
+<p>
+Setting up indenting for all <code>Org-mode</code> doc&rsquo;s.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook 'org-indent-mode)
+</pre>
+</div>
+
+<p>
+Better bullets for org mode.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">org-bullets</span>)
+(add-hook 'org-mode-hook (<span style="color: #99cc99;">lambda</span> () (org-bullets-mode 1)))
+</pre>
+</div>
+
+<p>
+Make org source blocks hae syntax highlighting.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-src-fontify-natively t)
+</pre>
+</div>
+
+<p>
+Make tabs act as if it were issued in a buffer of the language&rsquo;s major mode.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #999999; font-style: italic;">;;</span><span style="color: #999999; font-style: italic;">(setq org-src-tab-acts-natively t)</span>
+</pre>
+</div>
+
+<p>
+Store my org files in ~/org, define the location of an index file (my main todo list), and archive finished tasks in ~/org/archive.org.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-directory <span style="color: #66cccc;">"~/org"</span>)
+
+(<span style="color: #99cc99;">defun</span> <span style="color: #f99157;">org-file-path</span> (filename)
+  <span style="color: #cc99cc;">"Return the absolute address of an org file, given its relative name."</span>
+  (concat (file-name-as-directory org-directory) filename))
+
+(<span style="color: #99cc99;">setq</span> org-inbox-file <span style="color: #66cccc;">"~/Dropbox/inbox.org"</span>)
+(<span style="color: #99cc99;">setq</span> org-index-file (org-file-path <span style="color: #66cccc;">"index.org"</span>))
+(<span style="color: #99cc99;">setq</span> org-archive-location
+      (concat (org-file-path <span style="color: #66cccc;">"archive.org"</span>) <span style="color: #66cccc;">"::* From %s"</span>))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8-2" class="outline-3">
+<h3 id="sec-8-2">Task Management</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+I store all my todos in ~/org/index.org, so I’d like to derive my agenda from there.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-agenda-files (list org-index-file))
+</pre>
+</div>
+
+<p>
+Hitting C-c C-x C-s will mark a todo as done and move it to an appropriate place in the archive.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">defun</span> <span style="color: #f99157;">hrs/mark-done-and-archive</span> ()
+  <span style="color: #cc99cc;">"Mark the state of an org-mode item as DONE and archive it."</span>
+  (<span style="color: #99cc99;">interactive</span>)
+  (org-todo 'done)
+  (org-archive-subtree))
+
+(define-key org-mode-map (kbd <span style="color: #66cccc;">"C-c C-x C-s"</span>) 'hrs/mark-done-and-archive)
+</pre>
+</div>
+
+
+<p>
+Record the time that a todo was archived.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-log-done 'time)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-8-3" class="outline-3">
+<h3 id="sec-8-3">Exporting</h3>
+<div class="outline-text-3" id="text-8-3">
+<p>
+Allow export to markdown and beamer (for presentations).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">ox-md</span>)
+(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">ox-beamer</span>)
+(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">ox-twbs</span>)
+(<span style="color: #99cc99;">require</span> '<span style="color: #6699cc;">ox-epub</span>)
+</pre>
+</div>
+
+<p>
+Allow <code>babel</code> to evaluate Emacs lisp, Ruby, dot, or Gnuplot code.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (ruby . t)
+   (dot . t)
+   (gnuplot . t)))
+</pre>
+</div>
+
+<p>
+Don&rsquo;t ask before evaluating code blocks.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-confirm-babel-evaluate nil)
+</pre>
+</div>
+
+<p>
+Associate the &ldquo;dot&rdquo; language with the <code>graphviz-dot</code> major mode.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'org-src-lang-modes '(<span style="color: #66cccc;">"dot"</span> . graphviz-dot))
+</pre>
+</div>
+
+<p>
+Translate regular ol&rsquo; straight quotes to typographically-correct curly quotes
+when exporting.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-export-with-smart-quotes t)
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-8-3-1" class="outline-4">
+<h4 id="sec-8-3-1">TeX configuration</h4>
+<div class="outline-text-4" id="text-8-3-1">
+<p>
+I rarely write LaTeX directly any more, but I often export through it with
+org-mode, so I&rsquo;m keeping them together.
+</p>
+
+<p>
+Automatically parse the file after loading it.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> TeX-parse-self t)
+</pre>
+</div>
+
+<p>
+Always use <code>pdflatex</code> when compiling LaTeX documents. I don&rsquo;t really have any
+use for DVIs.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> TeX-PDF-mode t)
+</pre>
+</div>
+
+<p>
+Enable a minor mode for dealing with math (it adds a few useful key bindings),
+and always treat the current file as the &ldquo;main&rdquo; file. That&rsquo;s intentional, since
+I&rsquo;m usually actually in an org document.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'LaTeX-mode-hook
+          (<span style="color: #99cc99;">lambda</span> ()
+            (LaTeX-math-mode)
+            (<span style="color: #99cc99;">setq</span> TeX-master t)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8-3-2" class="outline-4">
+<h4 id="sec-8-3-2">Exporting to HTML</h4>
+<div class="outline-text-4" id="text-8-3-2">
+<p>
+Don&rsquo;t include a footer with my contact and publishing information at the bottom
+of every exported HTML document.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-html-postamble nil)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8-3-3" class="outline-4">
+<h4 id="sec-8-3-3">Exporting to PDF</h4>
+<div class="outline-text-4" id="text-8-3-3">
+<p>
+I want to produce PDFs with syntax highlighting in the code. The best way to do
+that seems to be with the <code>minted</code> package, but that package shells out to
+<code>pygments</code> to do the actual work. <code>pdflatex</code> usually disallows shell commands;
+this enables that.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-latex-pdf-process
+      '(<span style="color: #66cccc;">"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"</span>
+        <span style="color: #66cccc;">"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"</span>
+        <span style="color: #66cccc;">"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"</span>))
+</pre>
+</div>
+
+<p>
+Include the <code>minted</code> package in all of my LaTeX exports.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'org-latex-packages-alist '(<span style="color: #66cccc;">""</span> <span style="color: #66cccc;">"minted"</span>))
+(<span style="color: #99cc99;">setq</span> org-latex-listings 'minted)
+</pre>
+</div>
+
+<p>
+Include the <code>xcolors</code> package to all o my LaTeX exports.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'org-latex-packages-alist '(<span style="color: #66cccc;">"usenames,dvipsnames,svgnames"</span> <span style="color: #66cccc;">"xcolor"</span>))
+  <span style="color: #999999; font-style: italic;">;;</span><span style="color: #999999; font-style: italic;">(setq org-latex-listings 'minted)</span>
+</pre>
+</div>
+
+
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-latex-minted-options
+           '((<span style="color: #66cccc;">"frame"</span> <span style="color: #66cccc;">"lines"</span>)
+             (<span style="color: #66cccc;">"fontsize"</span> <span style="color: #66cccc;">"\\scriptsize"</span>)
+             (<span style="color: #66cccc;">"bgcolor"</span> <span style="color: #66cccc;">"LightGray"</span>)))
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> org-src-fontify-natively t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8-4" class="outline-3">
+<h3 id="sec-8-4">Visuals</h3>
+<div class="outline-text-3" id="text-8-4">
+<p>
+I prefer the tables to be significantly different from the colors used as the indentations.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(custom-theme-set-faces 'user
+`(org-table ((t (<span style="color: #cc99cc;">:foreground</span> <span style="color: #66cccc;">"LightCoral"</span>)))))
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(custom-theme-set-faces 'user
+ `(org-link ((t (<span style="color: #cc99cc;">:foreground</span> <span style="color: #66cccc;">"IndianRed"</span>)))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9">Backups</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Backups are put in one directory.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">setq</span> backup-directory-alist '((<span style="color: #66cccc;">"."</span> . <span style="color: #66cccc;">"~/.emacs.d/backups"</span>)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10">Origami Mode</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Sets up <code>Origami-mode</code> for c++ and LaTeX, and sets up key-bindings
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'c++-mode-hook 'origami-mode)
+(add-hook 'latex-mode-hook 'origami-mode)
+(add-hook 'origami-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key (kbd <span style="color: #66cccc;">"C-;"</span>) 'origami-recursively-toggle-node)))
+(add-hook 'origami-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key (kbd <span style="color: #66cccc;">"C-:"</span>) 'origami-toggle-all-nodes)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11">Visuals and Themes</h2>
+<div class="outline-text-2" id="text-11">
+</div><div id="outline-container-sec-11-1" class="outline-3">
+<h3 id="sec-11-1">Current Theme</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+Load the Tomorrow-eighties theme
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'after-init-hook (<span style="color: #99cc99;">lambda</span> () (load-theme 'sanityinc-tomorrow-eighties)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-11-2" class="outline-3">
+<h3 id="sec-11-2">Visual Line Mode</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+Turn on the nicer visual line mode.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'after-init-hook 'global-visual-line-mode)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12">Predictive Text</h2>
+<div class="outline-text-2" id="text-12">
+</div><div id="outline-container-sec-12-1" class="outline-3">
+<h3 id="sec-12-1">Company Mode</h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+Turns on <code>company-mode</code> on everywhere.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'after-init-hook 'global-company-mode)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13">Compilation Shortcuts</h2>
+<div class="outline-text-2" id="text-13">
+</div><div id="outline-container-sec-13-1" class="outline-3">
+<h3 id="sec-13-1">Shortcuts</h3>
+<div class="outline-text-3" id="text-13-1">
+<p>
+Make <b>C-x C-a</b> compile in most programming modes.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'latex-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key <span style="color: #66cccc;">"\C-x\C-a"</span> 'tex-compile)))
+(add-hook 'c++-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key <span style="color: #66cccc;">"\C-x\C-a"</span> 'compile)))
+(add-hook 'fortran-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key <span style="color: #66cccc;">"\C-x\C-a"</span> 'compile)))
+(add-hook 'c-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key <span style="color: #66cccc;">"\C-x\C-a"</span> 'compile)))
+(add-hook 'emacs-lisp-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key <span style="color: #66cccc;">"\C-x\C-a"</span> 'eval-buffer)))
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'graphviz-dot-mode-hook (<span style="color: #99cc99;">lambda</span> () (local-set-key <span style="color: #66cccc;">"\C-x\C-a"</span> 'compile)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-13-2" class="outline-3">
+<h3 id="sec-13-2">Definition of the compile function</h3>
+<div class="outline-text-3" id="text-13-2">
+</div><div id="outline-container-sec-13-2-1" class="outline-4">
+<h4 id="sec-13-2-1"><code>C++-mode</code> definition.</h4>
+<div class="outline-text-4" id="text-13-2-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'c++-mode-hook
+   (<span style="color: #99cc99;">lambda</span> ()
+      (set (make-local-variable 'compile-command)
+           (<span style="color: #99cc99;">let</span> ((file (file-name-nondirectory buffer-file-name)))
+           (format <span style="color: #66cccc;">"%s -o %s %s"</span>
+                   (<span style="color: #99cc99;">or</span> (getenv <span style="color: #66cccc;">"CC"</span>) <span style="color: #66cccc;">"g++"</span>)
+                   (file-name-sans-extension file)
+                   file)))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-13-2-2" class="outline-4">
+<h4 id="sec-13-2-2"><code>Fortran-mode</code> definition.</h4>
+<div class="outline-text-4" id="text-13-2-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'fortran-mode-hook
+          (<span style="color: #99cc99;">lambda</span> ()
+            (set (make-local-variable 'compile-command)
+            (<span style="color: #99cc99;">let</span> ((file (file-name-nondirectory buffer-file-name)))
+                 (format <span style="color: #66cccc;">"%s -o %s %s"</span>
+                       (<span style="color: #99cc99;">or</span> (getenv <span style="color: #66cccc;">"CC"</span>) <span style="color: #66cccc;">"gfortran -ffree-form"</span>)
+                       (file-name-sans-extension file)
+                       file)))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-13-3" class="outline-3">
+<h3 id="sec-13-3">Kill  Compilation Window</h3>
+<div class="outline-text-3" id="text-13-3">
+<p>
+Gets rid of the annoying window if compilation is successful.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">defun</span> <span style="color: #f99157;">kill-compile-frame-if-successful</span> (buffer string) 
+  <span style="color: #cc99cc;">" kill a compilation buffer if succeeded without warnings "</span> 
+  (<span style="color: #99cc99;">if</span> (<span style="color: #99cc99;">and</span> 
+       (<span style="color: #99cc99;">or</span> (string-match <span style="color: #66cccc;">"compilation"</span> (buffer-name buffer)) 
+           (string-match <span style="color: #66cccc;">"tex-shell"</span> (buffer-name buffer))
+           )
+       (<span style="color: #99cc99;">or</span> (string-match <span style="color: #66cccc;">"finished"</span> string) 
+           (string-match <span style="color: #66cccc;">"Transcript written"</span>)
+           )
+       (not 
+        (<span style="color: #99cc99;">with-current-buffer</span> buffer 
+          (search-forward <span style="color: #66cccc;">"warning"</span> nil t)))) 
+      (run-with-timer 1 nil 
+                      'delete-other-windows 
+                      )))
+(add-hook 'compilation-finish-functions 'kill-compile-frame-if-successful)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-14" class="outline-2">
+<h2 id="sec-14">Sensitivity Mode</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+A mode that never backs up or saves data
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #99cc99;">define-minor-mode</span> <span style="color: #f99157;">sensitive-mode</span>
+  <span style="color: #cc99cc;">"For sensitive files like password lists.</span>
+<span style="color: #cc99cc;">It disables backup creation and auto saving.</span>
+
+<span style="color: #cc99cc;">With no argument, this command toggles the mode.</span>
+<span style="color: #cc99cc;">Non-null prefix argument turns on the mode.</span>
+<span style="color: #cc99cc;">Null prefix argument turns off the mode."</span>
+  <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">The initial value.</span>
+  nil
+  <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">The indicator for the mode line.</span>
+  <span style="color: #66cccc;">" Sensitive"</span>
+  <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">The minor mode bindings.</span>
+  nil
+  (<span style="color: #99cc99;">if</span> (symbol-value sensitive-mode)
+    (<span style="color: #99cc99;">progn</span>
+  <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">disable backups</span>
+  (set (make-local-variable 'backup-inhibited) t) 
+  <span style="color: #999999; font-style: italic;">;; </span><span style="color: #999999; font-style: italic;">disable auto-save</span>
+  (<span style="color: #99cc99;">if</span> auto-save-default
+    (auto-save-mode -1)))
+                                        <span style="color: #999999; font-style: italic;">;</span><span style="color: #999999; font-style: italic;">resort to default value of backup-inhibited</span>
+    (kill-local-variable 'backup-inhibited)
+                                        <span style="color: #999999; font-style: italic;">;</span><span style="color: #999999; font-style: italic;">resort to default auto save setting</span>
+    (<span style="color: #99cc99;">if</span> auto-save-default
+    (auto-save-mode 1))))
+</pre>
+</div>
+</div>
+</div>
+</div><div class="col-md-3"><nav id="table-of-contents">
+<div id="text-table-of-contents" class="bs-docs-sidebar">
+<ul class="nav">
+<li><a href="#sec-1">Set Personal Information</a></li>
+<li><a href="#sec-2">Environment Settings</a>
+<ul class="nav">
+<li><a href="#sec-2-1">Scrolling settings</a></li>
+<li><a href="#sec-2-2">Scratch Message</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Repositories and File Loading</a>
+<ul class="nav">
+<li><a href="#sec-3-1">Repositories</a></li>
+<li><a href="#sec-3-2">Loading Files</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">Directory Manager Settings</a>
+<ul class="nav">
+<li><a href="#sec-4-1">Dired</a></li>
+<li><a href="#sec-4-2">NeoTree</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">PDF-Tools</a></li>
+<li><a href="#sec-6">Programming Settings</a>
+<ul class="nav">
+<li><a href="#sec-6-1">General Settings</a></li>
+<li><a href="#sec-6-2">C/C++ Settings</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">LaTeX</a></li>
+<li><a href="#sec-8">Org-Mode</a>
+<ul class="nav">
+<li><a href="#sec-8-1">Initialization and Hooks</a></li>
+<li><a href="#sec-8-2">Task Management</a></li>
+<li><a href="#sec-8-3">Exporting</a>
+<ul class="nav">
+<li><a href="#sec-8-3-1">TeX configuration</a></li>
+<li><a href="#sec-8-3-2">Exporting to HTML</a></li>
+<li><a href="#sec-8-3-3">Exporting to PDF</a></li>
+</ul>
+</li>
+<li><a href="#sec-8-4">Visuals</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">Backups</a></li>
+<li><a href="#sec-10">Origami Mode</a></li>
+<li><a href="#sec-11">Visuals and Themes</a>
+<ul class="nav">
+<li><a href="#sec-11-1">Current Theme</a></li>
+<li><a href="#sec-11-2">Visual Line Mode</a></li>
+</ul>
+</li>
+<li><a href="#sec-12">Predictive Text</a>
+<ul class="nav">
+<li><a href="#sec-12-1">Company Mode</a></li>
+</ul>
+</li>
+<li><a href="#sec-13">Compilation Shortcuts</a>
+<ul class="nav">
+<li><a href="#sec-13-1">Shortcuts</a></li>
+<li><a href="#sec-13-2">Definition of the compile function</a>
+<ul class="nav">
+<li><a href="#sec-13-2-1"><code>C++-mode</code> definition.</a></li>
+<li><a href="#sec-13-2-2"><code>Fortran-mode</code> definition.</a></li>
+</ul>
+</li>
+<li><a href="#sec-13-3">Kill  Compilation Window</a></li>
+</ul>
+</li>
+<li><a href="#sec-14">Sensitivity Mode</a></li>
+</ul>
+</div>
+</nav>
+</div></div></div>
+<footer id="postamble" class="">
+<div><p class="author">Author: Jacob Carroll</p>
+<p class="date">Created: 2017-05-26 Fri 12:37</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.0.50 (<a href="http://orgmode.org">Org-mode</a> 8.2.10)</p>
+</div>
+</footer>
+</body>
+</html>

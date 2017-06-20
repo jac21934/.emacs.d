@@ -1,0 +1,66 @@
+library(MASS)
+
+args <- commandArgs(TRUE) #get arguments from command line
+outname <- paste(args[2],".ps", sep="")
+postscript(outname)
+dat <- read.table(args[1], header = TRUE)
+
+TIME <- c()
+COL <- c()
+for( i in c(1:length(dat$DATA)))
+{
+    
+    if( dat$STATE[i] < 1){
+        COL <- c(COL,"blue")       
+    }
+    else{
+        COL <- c(COL, "red")
+    }
+        
+    if(i > 1){
+        time <- TIME[i-1]
+        if (dat$ZEROES == 0){
+            time <- time + 1
+        }
+        else{
+            time <- time + dat$ZEROES[i]
+            }
+        TIME <- c(TIME, time)
+    }
+    else{
+        TIME <- c(1)
+    }
+
+    if(i %% 100 == 0){
+        print(c(i,length(dat$DATA)))
+        }
+}
+
+
+plot(TIME, dat$DATA, pch=20, col=COL)
+
+
+ dat$ZEROES[which(dat$ZEROES == 0)] = 1
+
+timehist <- hist(dat$ZEROES , breaks = 100, plot = FALSE)
+timehist$counts <- timehist$counts/sum(timehist$counts)
+
+
+plot(timehist$breaks[-1], timehist$counts, log = 'xy', type = 'h')
+
+timehist <- hist(dat$ZEROES , breaks = 1000, plot = FALSE)
+                 
+timehist$counts <- timehist$counts/sum(timehist$counts)
+plot(timehist$breaks[-1], timehist$counts, log = 'xy', type = 'h')
+
+timehist <- hist(dat$ZEROES , breaks = 10000, plot = FALSE)
+                 
+timehist$counts <- timehist$counts/sum(timehist$counts)
+plot(timehist$breaks[-1], timehist$counts, log = 'xy', type = 'h')
+
+
+
+
+
+
+plot(timehist)
