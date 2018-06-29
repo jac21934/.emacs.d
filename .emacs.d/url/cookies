@@ -1,14 +1,0 @@
-;; Emacs-W3 HTTP cookies file
-;; Automatically generated file!!! DO NOT EDIT!!!
-
-(setq url-cookie-storage
- '(("acronymfinder.com"
-	[url-cookie "GUID" "4/23/2017 1:07:49 PM~" "23-Apr-2027 17:07:49.00 GMT" "/" "acronymfinder.com" nil]))
-)
-(setq url-cookie-secure-storage
- 'nil)
-
-;; Local Variables:
-;; version-control: never
-;; no-byte-compile: t
-;; End:

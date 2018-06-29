@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{initial\PYGZhy{}scratch\PYGZhy{}message}
-			\PYG{l+s}{\PYGZdq{};; [C\PYGZhy{}x C\PYGZhy{}f] Open [C\PYGZhy{}x C\PYGZhy{}s] Save [C\PYGZhy{}x s] Save as [C\PYGZhy{}x b] S/w buf [C\PYGZhy{}x k] Kill buf}
-\PYG{l+s}{;; [C\PYGZhy{}x 1] Del others [C\PYGZhy{}x 0] Del current [C\PYGZhy{}x 2/3] Split\PYGZhy{}H/V [C\PYGZhy{}x o] S/w window}
-\PYG{l+s}{;; [C\PYGZhy{}a/e] Begin/End of line [M\PYGZhy{}f/b] Next/Back word [C/M\PYGZhy{}v] Next/Back page}
-\PYG{l+s}{;; [C/M\PYGZhy{}d] Del char/word [C\PYGZhy{}s/r] search/r\PYGZhy{}search [M\PYGZhy{}\PYGZpc{}] replace\PYGZdq{}}\PYG{p}{)}
-\end{Verbatim}

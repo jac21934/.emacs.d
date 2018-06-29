@@ -1,3 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}src\PYGZhy{}fontify\PYGZhy{}natively} \PYG{n+no}{t}\PYG{p}{)}
-\end{Verbatim}

@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}babel\PYGZhy{}do\PYGZhy{}load\PYGZhy{}languages}
- \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}babel\PYGZhy{}load\PYGZhy{}languages}
- \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{emacs\PYGZhy{}lisp} \PYG{o}{.} \PYG{n+no}{t}\PYG{p}{)}
-	 \PYG{p}{(}\PYG{n+nv}{ruby} \PYG{o}{.} \PYG{n+no}{t}\PYG{p}{)}
-	 \PYG{p}{(}\PYG{n+nv}{dot} \PYG{o}{.} \PYG{n+no}{t}\PYG{p}{)}
-	 \PYG{p}{(}\PYG{n+nv}{gnuplot} \PYG{o}{.} \PYG{n+no}{t}\PYG{p}{)))}
-\end{Verbatim}
