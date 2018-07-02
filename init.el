@@ -17,7 +17,7 @@
  '(org-agenda-files (quote ("~/org/index.org")))
  '(package-selected-packages
 	 (quote
-		(helm org org-babel-eval-in-repl discover-my-major indent-guide linum-relative powerline symon js2-mode ace-window gnuplot-mode gnuplot hl-spotlight smart-mode-line nov magit evil lua-mode org-bullets zenburn-theme yafolding undo-tree sublimity stripe-buffer pdf-tools ox-twbs ox-rst ox-epub origami neotree multi-term minimap kaolin-theme htmlize hc-zenburn-theme graphviz-dot-mode ggtags folding fireplace ess dired-open dired+ cyberpunk-theme company color-theme-sanityinc-tomorrow color-theme-monokai beacon ample-zen-theme ample-theme aggressive-indent))))
+		(use-package helm org org-babel-eval-in-repl discover-my-major indent-guide linum-relative powerline symon js2-mode ace-window gnuplot-mode gnuplot hl-spotlight smart-mode-line nov magit evil lua-mode org-bullets zenburn-theme yafolding undo-tree sublimity stripe-buffer pdf-tools ox-twbs ox-rst ox-epub origami neotree multi-term minimap kaolin-theme htmlize hc-zenburn-theme graphviz-dot-mode ggtags folding fireplace ess dired-open dired+ cyberpunk-theme company color-theme-sanityinc-tomorrow color-theme-monokai beacon ample-zen-theme ample-theme aggressive-indent))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
