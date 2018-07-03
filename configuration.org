@@ -8,11 +8,9 @@
 Setting some personal information for ease of compilation into LaTeX later on.
 
 #+BEGIN_SRC emacs-lisp
-  (setq user-full-name "Jacob Carroll"
-        user-mail-address "jac21934@gmail.com"
-        calendar-latitude 37.2
-        calendar-longitude -80.4
-        calendar-location-name "Blacksburg, VA")
+    (setq user-full-name "Jacob Carroll"
+          user-mail-address "jac21934@gmail.com"
+          )
 #+END_SRC
 * Repositories and File Loading
 ** Repositories
