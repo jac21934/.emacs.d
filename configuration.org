@@ -19,33 +19,66 @@ Setting some personal information for ease of compilation into LaTeX later on.
 Setting up the package archives
 
 #+BEGIN_SRC emacs-lisp
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+(setq package-archives '(
+("gnu" . "https://elpa.gnu.org/packages/")
 ("marmalade" . "https://marmalade-repo.org/packages/") 
 ("melpa" . "https://melpa.org/packages/") 
-("org" . "http://orgmode.org/elpa/") ) )
+("org" . "http://orgmode.org/elpa/") 
+) )
 #+END_SRC 
 
-** Loading Files
 
+Load available packages from repositories.
+#+BEGIN_SRC emacs-lisp
+(unless package-archive-contents
+   (package-refresh-contents))
+#+END_SRC
+
+** Loading Files
+*** Files to install
+
+#+BEGIN_SRC emacs-lisp
+(setq package-list '(
+             powerline 
+             ace-window 
+             ibuffer
+             color-theme-sanityinc-tomorrow
+             dired+
+             dired-open
+             neotree
+             helm
+             helm-swoop
+             indent-guide
+             ess
+             js2-mode
+             org
+             org-bullets
+             ox-twbs
+             nov
+             origami
+             company
+             )
+)
+#+END_SRC
+*** Initialize packages
 Sets the path to find packages.
 #+BEGIN_SRC emacs-lisp
 (package-initialize)
 #+END_SRC
 
-This recursively loads all paths in /elpa/. It was necessary for some reason.
-
+*** Install missing packages
 #+BEGIN_SRC emacs-lisp
-  ;; (let ((default-directory (expand-file-name "~/.emacs.d/elpa/"))) 
-  ;;  (setq load-path  
-  ;;  (append 
-  ;;  (let ((load-path (copy-sequence load-path)))
-  ;;    (append (copy-sequence (normal-top-level-add-to-load-path '(".")))
-  ;;    (normal-top-level-add-subdirs-to-load-path)))
-  ;;          load-path)))
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 #+END_SRC
-
+** Custom Variables
+Set up temporary file to dump custom variables
+#+BEGIN_SRC emacs-lisp
+(setq custom-file (make-temp-file "emacs-custom"))
+#+END_SRC
 * Environment Settings
-
+** Miscellaneous Settings
 Tell emacs to use Unicode-8.
 
 #+BEGIN_SRC emacs-lisp
@@ -92,6 +125,12 @@ Remove the menu bar.
 Add a clock.
 #+BEGIN_SRC emacs-lisp
 (display-time-mode 1)
+#+END_SRC
+
+Make emacs delete on selection
+
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode t)               
 #+END_SRC
 
 ** Cursor
@@ -152,6 +191,11 @@ Setting =ibuffer= to "C-x C-b".
 #+END_SRC
 * Visuals and Themes
 ** Current Theme
+Handle the custom-theme stuff.
+#+BEGIN_SRC emacs-lisp
+(setq custom-safe-themes t)
+#+END_SRC
+
 Load the tomorrow-eighties theme
 #+BEGIN_SRC emacs-lisp
 (require 'color-theme-sanityinc-tomorrow)
@@ -172,7 +216,6 @@ Turn on the nicer visual line mode. This wraps text when it reachs the end of th
 Load up the assorted =dired= extensions.
 
 #+BEGIN_SRC emacs-lisp
-(require 'dired-x)
 (require 'dired+)
 (require 'dired-open)
 #+END_SRC 
@@ -288,10 +331,11 @@ Don't recursively spawn helm windows.
   (helm-mode 1)
 #+END_SRC
 
-=helm-mode= autoresizing.
+Fuzzy match /helm-M-x/.
 #+BEGIN_SRC emacs-lisp
-(helm-autoresize-mode t)
+(setq helm-M-x-fuzzy-match t)
 #+END_SRC
+=helm-mode= autoresizing.
 
 ** Redefined commands
 *** M-x
@@ -310,7 +354,12 @@ Grep stuff.
   (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
         helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
 #+END_SRC
-
+*** Searching
+Make searching use /helm-swoop/
+#+BEGIN_SRC emacs-lisp
+(require 'helm-swoop)
+(global-set-key (kbd "C-s") 'helm-swoop)
+#+END_SRC
 * PDF-Tools
 Turns =pdf-tools= on after startup
 
@@ -320,11 +369,6 @@ Turns =pdf-tools= on after startup
 
 * Programming Settings
 ** General Settings
-Make emacs delete on selection
-
-#+BEGIN_SRC emacs-lisp
-(delete-selection-mode t)               
-#+END_SRC
 
 Require line numbers in all programming models:
 
@@ -465,8 +509,6 @@ Store my org files in ~/org, define the location of an index file (my main todo 
 ** Exporting
 Allow export to markdown and beamer (for presentations).
 #+BEGIN_SRC emacs-lisp
-(require 'ox-md)
-(require 'ox-beamer)
 (require 'ox-twbs)
 #+END_SRC
 
