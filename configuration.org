@@ -52,7 +52,7 @@ Tell emacs to use Unicode-8.
   (set-language-environment "UTF-8")
 #+END_SRC
 
-Set startup window size.
+Set start up window size.
 
 #+BEGIN_SRC emacs-lisp
   (custom-set-variables
@@ -63,7 +63,7 @@ Set startup window size.
 
 
 
-I don't like the startup splash, or the messages buffer.
+I don't like the start up splash, or the messages buffer.
 
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t)
@@ -109,14 +109,14 @@ Ensure =powerline= is installed.
     )
 #+END_SRC
 
-Uses =powerline= for a more aestetically pleasing minibuffer bar.
+Uses =powerline= for a more aesthetically pleasing minibuffer bar.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-init-hook 'powerline-default-theme)
   ;; (powerline-default-theme)
 #+END_SRC
 
 ** Window settings
-Ensure that =ace-window= is installes.
+Ensure that =ace-window= is installed.
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
     :defer t
@@ -151,14 +151,19 @@ When point goes outside the window, Emacs usually recenters the buffer point. Iâ
 #+END_SRC 
 
 ** Scratch Message
-Sets the scratch message to be a helpful reminder for key bindings
+Lets the scratch message change.
+#+BEGIN_SRC emacs-lisp
+  (use-package scratch-message
+    :ensure t
+    )
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (setq initial-scratch-message 
-        ";; [C-x C-f] Open [C-x C-s] Save [C-x s] Save as [C-x b] S/w buf [C-x k] Kill buf
-  ;; [C-x 1] Del others [C-x 0] Del current [C-x 2/3] Split-H/V [C-x o] S/w window
-  ;; [C-a/e] Begin/End of line [M-f/b] Next/Back word [C/M-v] Next/Back page
-  ;; [C/M-d] Del char/word [C-s/r] search/r-search [M-%] replace")
+;;  (setq initial-scratch-message 
+      ;; [C-x C-f] Open [C-x C-s] Save [C-x s] Save as [C-x b] S/w buf [C-x k] Kill buf
+  ;; ;; [C-x 1] Del others [C-x 0] Del current [C-x 2/3] Split-H/V [C-x o] S/w window
+  ;; ;; [C-a/e] Begin/End of line [M-f/b] Next/Back word [C/M-v] Next/Back page
+  ;; ;; [C/M-d] Del char/word [C-s/r] search/r-search [M-%] replace")
 #+END_SRC
 * Helm
 ** Setup
@@ -262,7 +267,7 @@ Make emacs search using /helm-swoop/
     )
 #+END_SRC
 *** Kill Ring Yanking
-Swap emacs' original kill ring cycle "M-y" with helm's verion.
+Swap emacs' original kill ring cycle "M-y" with helm's version.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 #+END_SRC 
@@ -300,7 +305,7 @@ Ensure that  the tomorrow-eighties theme is installed and load it.
 #+END_SRC 
 ** Visual Line Mode
 
-Turn on the nicer visual line mode. This wraps text when it reachs the end of the window, rather than extending the text past the screen.
+Turn on the nicer visual line mode. This wraps text when it reaches the end of the window, rather than extending the text past the screen.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-init-hook 'global-visual-line-mode)
@@ -401,7 +406,7 @@ Set the default style to linux for c/c++ programming
 
 ** Python Settings
 
-Require =ident-guide-mode= to use in python.
+Require =indent-guide-mode= to use in python.
 #+BEGIN_SRC emacs-lisp
   (use-package indent-guide
     :ensure t
@@ -436,17 +441,22 @@ Turn on =linum-mode= for Latex.
   (add-hook 'latex-mode-hook 'linum-mode)
 #+END_SRC
 
-Automatically parses latex on loading.
-#+BEGIN_SRC emacs-lisp
-  (setq TeX-parse-self t)
-#+END_SRC
-
-Always use =pdflatex= when compiling LaTeX documents. I don't really have any
-use for DVIs.
 
 #+BEGIN_SRC emacs-lisp
-  (setq TeX-PDF-modex t)
-#+END_SRC
+;;(add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode-hook))
+#+end_SRC
+
+# Automatically parses latex on loading.
+# #+BEGIN_SRC emacs-lisp
+#   (setq TeX-parse-self t)
+# #+END_SRC
+
+# Always use =pdflatex= when compiling LaTeX documents. I don't really have any
+# use for DVIs.
+
+# #+BEGIN_SRC emacs-lisp
+#   (setq TeX-PDF-modex t)
+# #+END_SRC
 
 Enable a minor mode for dealing with math (it adds a few useful key bindings),
 and always treat the current file as the "main" file. 
@@ -505,7 +515,7 @@ Store my org files in ~/org, define the location of an index file (my main todo 
 #+END_SRC
 
 ** Exporting
-Allow export to markdown and beamer (for presentations).
+Allow exporting twitter bootstrap webpages.
 #+BEGIN_SRC emacs-lisp
   (use-package ox-twbs
     :ensure t
@@ -548,8 +558,8 @@ I prefer the tables to be significantly different from the colors used as the in
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  ;;(custom-theme-set-faces 'user
-  ;; `(org-link ((t (:foreground "IndianRed")))))
+  (custom-theme-set-faces 'user
+                          `(org-link ((t (:foreground "IndianRed")))))
 #+END_SRC
 
 |---------------+--------------|
@@ -639,10 +649,10 @@ Make *C-x C-a* compile in most programming modes.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'latex-mode-hook (lambda () (local-set-key "\C-x\C-a" 'tex-compile)))
-  (add-hook 'c++-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
-  (add-hook 'fortran-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
-  (add-hook 'c-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
-  (add-hook 'emacs-lisp-mode-hook (lambda () (local-set-key "\C-x\C-a" 'eval-buffer)))
+  ;;  (add-hook 'c++-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
+  ;; (add-hook 'fortran-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
+  ;;(add-hook 'c-mode-hook (lambda () (local-set-key "\C-x\C-a" 'compile)))
+  ;; (add-hook 'emacs-lisp-mode-hook (lambda () (local-set-key "\C-x\C-a" 'eval-buffer)))
 #+END_SRC
 
 ** Definition of the compile function
