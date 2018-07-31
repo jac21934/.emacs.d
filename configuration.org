@@ -7,7 +7,6 @@
 
 * Personal Information
 Setting some personal information for ease of compilation into LaTeX later on.
-[[/home/jacob/Downloads/Rotating_earth_(large).gif]]
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Jacob Carroll"
         user-mail-address "jac21934@gmail.com"
@@ -16,7 +15,6 @@ Setting some personal information for ease of compilation into LaTeX later on.
 * Repositories and File Loading
 ** Repositories
 Setting up the package archives
-
 #+BEGIN_SRC emacs-lisp
   (setq package-archives '(
                            ("gnu" . "https://elpa.gnu.org/packages/")
@@ -27,46 +25,32 @@ Setting up the package archives
         )
 #+END_SRC 
 
-
 Load available packages from repositories.
 #+BEGIN_SRC emacs-lisp
   (unless package-archive-contents
     (package-refresh-contents))
 #+END_SRC
-
-** Loading Files
-*** Initialize packages
-Sets the path to find packages.
-#+BEGIN_SRC emacs-lisp
-;;  (package-initialize)
-#+END_SRC
-
 ** Custom Variables
-Set up temporary file to dump custom variables
+Set up temporary file to dump custom variables.
 #+BEGIN_SRC emacs-lisp
   (setq custom-file (make-temp-file "emacs-custom"))
 #+END_SRC
 * Environment Settings
 ** Miscellaneous Settings
 Tell emacs to use Unicode-8.
-
 #+BEGIN_SRC emacs-lisp
   (set-language-environment "UTF-8")
 #+END_SRC
 
-Set start up window size.
-
+Set start up window size to fullscreen.
 #+BEGIN_SRC emacs-lisp
   (custom-set-variables
    '(initial-frame-alist (quote ((fullscreen . maximized)))))
-  ;;(add-to-list 'default-frame-alist '(height . 40))
-  ;; (add-to-list 'default-frame-alist '(width . 100))
 #+END_SRC
 
 
 
 I don't like the start up splash, or the messages buffer.
-
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t)
   (setq-default message-log-max nil)
@@ -155,16 +139,6 @@ When point goes outside the window, Emacs usually recenters the buffer point. Iâ
 ** Scratch Message
 #+BEGIN_SRC emacs-lisp
   (setq initial-scratch-message "")
-#+END_SRC
-** Emacs Dashboard
-Require =emacs dashboard=.
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package dashboard
-  ;;   :ensure t
-  ;;   :config
-  ;;   (dashboard-setup-startup-hook)
-  ;;   (setq show-week-agenda-p t)
-  ;;   )
 #+END_SRC
 * Helm
 ** Setup
@@ -295,7 +269,7 @@ Set up =Avy= for use.
     )        
 #+END_SRC
 * Multiple Cursors
-Setting up =multiple-cursors=
+Setting up =multiple-cursors= with better rectangular editing.
 #+BEGIN_SRC emacs-lisp
     (use-package multiple-cursors
       :ensure t
@@ -308,11 +282,7 @@ Setting up =multiple-cursors=
 
       )
 #+END_SRC
-Better rectangular editing
 
-#+BEGIN_SRC 
-
-#+END_SRC 
 
 * Ibuffer
 Replaces emacs' default buffer manager with =ibuffer=.
@@ -321,23 +291,6 @@ Replaces emacs' default buffer manager with =ibuffer=.
     :defer t
     :ensure t
     :bind ("C-x C-b" . ibuffer)
-    ;;   :init 
-    ;;   (add-hook 'ibuffer-hook
-    ;;             (lambda ()
-    ;;               (ibuffer-vc-set-filter-groups-by-vc-root)
-    ;;               (unless (eq ibuffer-sorting-mode 'alphabetic)
-    ;;                 (ibuffer-do-sort-by-alphabetic))))
-    ;;   (setq ibuffer-formats
-    ;;         '((mark modified read-only vc-status-mini " "
-    ;;                 (name 18 18 :left :elide)
-    ;;                 " "
-    ;;                 (size 9 -1 :right)
-    ;;                 " "
-    ;;                 (mode 16 16 :left :elide)
-    ;;                 " "
-    ;;                 (vc-status 16 16 :left)
-    ;;                 " "
-    ;;                filename-and-process)))
     )
 #+END_SRC
 * Visuals and Themes
@@ -356,8 +309,7 @@ Ensure that  the tomorrow-eighties theme is installed and load it.
     )
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-#+END_SRC 
+
 ** Visual Line Mode
 
 Turn on the nicer visual line mode. This wraps text when it reaches the end of the window, rather than extending the text past the screen.
@@ -399,7 +351,6 @@ Ask before recursively deleting a directory, though.
 #+END_SRC 
 
 ** NeoTree
-
 Setting up =NeoTree= and setting [f7] to toggle it. 
 #+BEGIN_SRC emacs-lisp
   (use-package neotree
@@ -410,7 +361,7 @@ Setting up =NeoTree= and setting [f7] to toggle it.
 #+END_SRC
 
 * PDF-Tools
-Turns =pdf-tools= on after startup
+Turns =pdf-tools= on after startup.
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
     :ensure t
@@ -419,13 +370,7 @@ Turns =pdf-tools= on after startup
     (pdf-tools-install)
     :config
     (setq-default pdf-view-display-size 'fit-page)
-
     )
-#+END_SRC
-
-
-#+BEGIN_SRC emacs-lisp
-  ;;  (add-hook 'after-init-hook 'pdf-tools-install)
 #+END_SRC
 
 * Programming Settings
@@ -444,13 +389,11 @@ Highlight the current line when programming.
 
 
 Smaller tab-width:
-
 #+BEGIN_SRC emacs-lisp
   (setq-default tab-width 2)
 #+END_SRC
 
 Show matching parenthesis:
-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-init-hook 'show-paren-mode)
 #+END_SRC
@@ -517,26 +460,8 @@ Turn on =linum-mode= for Latex.
   (add-hook 'latex-mode-hook 'linum-mode)
 #+END_SRC
 
-
-#+BEGIN_SRC emacs-lisp
-  ;;(add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode-hook))
-#+end_SRC
-
-# Automatically parses latex on loading.
-# #+BEGIN_SRC emacs-lisp
-#   (setq TeX-parse-self t)
-# #+END_SRC
-
-# Always use =pdflatex= when compiling LaTeX documents. I don't really have any
-# use for DVIs.
-
-# #+BEGIN_SRC emacs-lisp
-#   (setq TeX-PDF-modex t)
-# #+END_SRC
-
 Enable a minor mode for dealing with math (it adds a few useful key bindings),
 and always treat the current file as the "main" file. 
-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'LaTeX-mode-hook
             (lambda ()
@@ -565,7 +490,6 @@ Better bullets for org mode.
     :defer t
     :init  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     )
-
 #+END_SRC
 
 Make org source blocks has syntax highlighting.
@@ -630,12 +554,13 @@ This was taken from Harry Schwartz's excellent config setup [[https://github.com
 #+END_SRC
 
 Record the time that a todo was archived.
-
 #+BEGIN_SRC emacs-lisp
   (setq org-log-done 'time)
 #+END_SRC
 
 ** Capturing
+
+Set up =org-capture= stuff.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c c") 'org-capture)
 #+END_SRC
@@ -742,7 +667,7 @@ Emacs has a tendency to litter directories with half a dozen backed up files. To
 #+END_SRC
 
 * Origami Mode
-Require =Origami-mode=
+Require =Origami-mode= and set it up for for C++ and LaTeX with key-bindings
 #+BEGIN_SRC emacs-lisp
   (use-package origami
     :ensure t
@@ -758,11 +683,6 @@ Require =Origami-mode=
     )
 #+END_SRC
 
-Sets up =Origami-mode= for c++ and LaTeX, and sets up key-bindings
-#+BEGIN_SRC emacs-lisp
-
-#+END_SRC
-
 * Predictive Text
 ** Company Mode
 Require =company-mode= and turn it on everywhere.
@@ -776,7 +696,7 @@ Require =company-mode= and turn it on everywhere.
 
 * Compilation Shortcuts
 ** Shortcuts
-Make *C-x C-a* compile in most programming modes.
+Make *C-x C-a* compile in +most programming modes+ latex.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'latex-mode-hook (lambda () (local-set-key "\C-x\C-a" 'tex-compile)))
